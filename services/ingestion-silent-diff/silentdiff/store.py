@@ -41,7 +41,10 @@ class Store:
     def __init__(self, path: str = ":memory:"):
         if path != ":memory:":
             os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
-        self.db = sqlite3.connect(path)
+        # /healthz reads counts() from the HTTP thread while the poll loop
+        # writes; Python's sqlite3 serialises access itself, it only needs
+        # telling the connection is shared.
+        self.db = sqlite3.connect(path, check_same_thread=False)
         self.db.execute("PRAGMA foreign_keys = ON")
         if path != ":memory:":
             self.db.execute("PRAGMA journal_mode = WAL")
