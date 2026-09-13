@@ -170,13 +170,15 @@ func TestDeadLetterQueuesAreBound(t *testing.T) {
 // broker definitions are updated too, which is the drift we are guarding against.
 func TestConsumerQueuesMatchTheServices(t *testing.T) {
 	want := map[string][]string{
-		"resolution.recall-raw":    {"ingestion.recall.raw.received.*", "ingestion.catalog.sku.vanished.v1"},
-		"containment.lot-resolved": {"resolution.lot.resolved.v1"},
-		"rescue.containment-taken": {"containment.action.taken.v1"},
-		"rescue.confirmations":     {"rescue.order.confirmed.v1"},
-		"notification.outbound":    {"containment.action.taken.v1", "evasion.flagged.v1", "rescue.order.proposed.v1"},
-		"ops.review":               {"audit.dossier.generated.v1", "containment.action.proposed.v1"},
-		"storefront.projection":    {"containment.action.taken.v1", "resolution.lot.resolved.v1"},
+		"resolution.recall-raw":     {"ingestion.recall.raw.received.*", "ingestion.catalog.sku.vanished.v1"},
+		"containment.lot-resolved":  {"resolution.lot.resolved.v1"},
+		"rescue.containment-taken":  {"containment.action.taken.v1"},
+		"rescue.confirmations":      {"rescue.order.confirmed.v1"},
+		"notification.outbound":     {"containment.action.taken.v1", "evasion.flagged.v1", "rescue.order.proposed.v1"},
+		"extractor.recall-raw":      {"ingestion.recall.raw.received.*"},
+		"evasion.containment-taken": {"containment.action.taken.v1"},
+		"ops.review":                {"audit.dossier.generated.v1", "containment.action.proposed.v1"},
+		"storefront.projection":     {"containment.action.taken.v1", "resolution.lot.resolved.v1"},
 		// The audit ledger binds to everything on every incident-bearing
 		// exchange: a dossier assembled from a subset would be evidence of nothing.
 		"audit.ledger": {"#", "#", "#", "#", "#"},

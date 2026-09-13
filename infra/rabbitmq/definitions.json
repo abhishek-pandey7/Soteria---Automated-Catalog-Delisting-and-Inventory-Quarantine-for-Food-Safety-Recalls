@@ -1,8 +1,27 @@
 {
   "rabbit_version": "4.1.0",
+  "users": [
+    {
+      "name": "__RABBITMQ_USER__",
+      "password": "__RABBITMQ_PASSWORD__",
+      "tags": [
+        "administrator"
+      ],
+      "limits": {}
+    }
+  ],
   "vhosts": [
     {
       "name": "/"
+    }
+  ],
+  "permissions": [
+    {
+      "user": "__RABBITMQ_USER__",
+      "vhost": "/",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
     }
   ],
   "policies": [
@@ -161,6 +180,15 @@
       "auto_delete": false,
       "internal": false,
       "arguments": {}
+    },
+    {
+      "name": "extractor.dlx",
+      "vhost": "/",
+      "type": "topic",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
     }
   ],
   "queues": [
@@ -303,6 +331,42 @@
     },
     {
       "name": "ops.review.dlq",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
+      "name": "extractor.recall-raw",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-dead-letter-exchange": "extractor.dlx",
+        "x-queue-type": "quorum",
+        "x-delivery-limit": 5
+      }
+    },
+    {
+      "name": "extractor.recall-raw.dlq",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
+      "name": "evasion.containment-taken",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-dead-letter-exchange": "evasion.dlx",
+        "x-queue-type": "quorum",
+        "x-delivery-limit": 5
+      }
+    },
+    {
+      "name": "evasion.containment-taken.dlq",
       "vhost": "/",
       "durable": true,
       "auto_delete": false,
@@ -506,6 +570,38 @@
       "source": "ops.dlx",
       "vhost": "/",
       "destination": "ops.review.dlq",
+      "destination_type": "queue",
+      "routing_key": "#",
+      "arguments": {}
+    },
+    {
+      "source": "ingestion.x",
+      "vhost": "/",
+      "destination": "extractor.recall-raw",
+      "destination_type": "queue",
+      "routing_key": "ingestion.recall.raw.received.*",
+      "arguments": {}
+    },
+    {
+      "source": "extractor.dlx",
+      "vhost": "/",
+      "destination": "extractor.recall-raw.dlq",
+      "destination_type": "queue",
+      "routing_key": "#",
+      "arguments": {}
+    },
+    {
+      "source": "containment.x",
+      "vhost": "/",
+      "destination": "evasion.containment-taken",
+      "destination_type": "queue",
+      "routing_key": "containment.action.taken.v1",
+      "arguments": {}
+    },
+    {
+      "source": "evasion.dlx",
+      "vhost": "/",
+      "destination": "evasion.containment-taken.dlq",
       "destination_type": "queue",
       "routing_key": "#",
       "arguments": {}

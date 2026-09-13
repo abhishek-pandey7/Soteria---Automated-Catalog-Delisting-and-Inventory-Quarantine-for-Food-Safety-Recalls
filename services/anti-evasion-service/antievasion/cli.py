@@ -79,7 +79,13 @@ def consume_containment(url: str, watchlist: Watchlist, stop: threading.Event) -
             ch = conn.channel()
             ch.exchange_declare(exchange="containment.x", exchange_type="topic", durable=True)
             ch.exchange_declare(exchange="evasion.dlx", exchange_type="topic", durable=True)
-            ch.queue_declare(queue="evasion.containment-taken", durable=True, arguments={"x-dead-letter-exchange": "evasion.dlx"})
+            # Same shape as every other consumer queue (libs/core/bus and
+            # infra/rabbitmq/definitions.json): quorum, so the broker counts
+            # deliveries and dead-letters after 5, with a .dlq that catches them.
+            ch.queue_declare(queue="evasion.containment-taken.dlq", durable=True)
+            ch.queue_bind(queue="evasion.containment-taken.dlq", exchange="evasion.dlx", routing_key="#")
+            ch.queue_declare(queue="evasion.containment-taken", durable=True, arguments={
+                "x-dead-letter-exchange": "evasion.dlx", "x-queue-type": "quorum", "x-delivery-limit": 5})
             ch.queue_bind(queue="evasion.containment-taken", exchange="containment.x", routing_key="containment.action.taken.v1")
 
             def on_msg(chan, method, props, body):
