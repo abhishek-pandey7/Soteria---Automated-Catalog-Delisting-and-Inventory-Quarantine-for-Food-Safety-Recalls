@@ -81,19 +81,41 @@ export const Absent: Story = {
 export const Loading: Story = {
     args: { data: null, loading: true },
 }
+/**
+ * The stories below read the committed snapshot through the real hook. Nothing
+ * is mocked and nothing is fetched — the barcodes are genuine products in
+ * src/api/allergens.snapshot.json.
+ */
 function LivePanel({ gtin }: { gtin: string }) {
     const { data, loading } = useProductAllergens(gtin)
     return <AllergenPanel data={data} loading={loading} />
 }
 
-export const LiveComplete: Story = {
-    render: () => <LivePanel gtin="3017620422003" />,
+/**
+ * A 12-digit barcode, as printed on a pack, against a snapshot keyed on the
+ * 14-digit form. This is the story that proves the normalisation: without it the
+ * lookup misses and the panel shows ABSENT, which looks exactly like Open Food
+ * Facts having nothing.
+ */
+export const LiveTwelveDigitBarcode: Story = {
+    render: () => <LivePanel gtin="860864000307" />,
 }
 
-export const LivePartial: Story = {
-    render: () => <LivePanel gtin="1111111111111" />,
+/** A 13-digit EAN, and one of the few snapshot entries carrying traces. */
+export const LiveWithTraces: Story = {
+    render: () => <LivePanel gtin="3175680011480" />,
 }
 
-export const LiveAbsent: Story = {
+/**
+ * A recalled product Open Food Facts has nothing for. It is in the snapshot on
+ * purpose, as ABSENT with no product name — so "recalled, and we have no
+ * allergen data" is a row rather than a silence.
+ */
+export const LiveRecalledWithNoData: Story = {
+    render: () => <LivePanel gtin="858792003323" />,
+}
+
+/** A barcode the snapshot does not cover: ABSENT, same shape, no network call. */
+export const LiveNotInSnapshot: Story = {
     render: () => <LivePanel gtin="0000000000000" />,
 }

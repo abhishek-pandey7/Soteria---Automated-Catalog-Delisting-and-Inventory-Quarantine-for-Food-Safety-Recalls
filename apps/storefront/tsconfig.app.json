@@ -5,6 +5,9 @@
     "lib": ["ES2023", "DOM"],
     "module": "esnext",
     "types": ["vite/client"],
+    // The allergen snapshot ships as JSON (src/api/allergens.snapshot.json) so the
+    // generator can write it directly with no transformation step in between.
+    "resolveJsonModule": true,
     "allowArbitraryExtensions": true,
     "skipLibCheck": true,
 

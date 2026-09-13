@@ -1,5 +1,18 @@
 import type { ProductAllergens, Coverage } from './allergens'
 
+/**
+ * The live Open Food Facts client.
+ *
+ * NOT WIRED INTO THE APP. The allergen layer reads ./allergensSnapshot instead,
+ * so no page fetches OFF at render time. This file is kept because it is the
+ * reference for the coverage rule — tools/offsnapshot transliterates the block
+ * below, and the two have to agree — and because it is what a refresh path would
+ * be built from if the snapshot ever needs updating from inside the app.
+ *
+ * Nothing imports it today. Check that before assuming a change here has any
+ * effect on what a customer sees.
+ */
+
 const OFF_BASE = 'https://world.openfoodfacts.org/api/v2'
 
 type OffProduct = {

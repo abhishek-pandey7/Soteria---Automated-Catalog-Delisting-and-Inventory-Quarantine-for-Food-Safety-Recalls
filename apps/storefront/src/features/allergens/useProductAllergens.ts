@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getProductAllergens } from '../../api/openFoodFacts'
+import { getProductAllergens } from '../../api/allergensSnapshot'
 import type { ProductAllergens } from '../../api/allergens'
 
 export function useProductAllergens(gtin?: string) {

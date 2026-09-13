@@ -1,0 +1,873 @@
+[
+  {
+    "gtin": "03175680011480",
+    "product_name": "Sésame",
+    "brand": "Gerblé",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:gluten",
+      "en:sesame-seeds"
+    ],
+    "traces": [
+      "en:eggs",
+      "en:lupin",
+      "en:milk",
+      "en:mustard",
+      "en:nuts",
+      "en:soybeans"
+    ],
+    "ingredients_text": "Farine de blé 57%, sucre de canne roux, huile de colza, sésame toasté 10,6%, germe de blé 5,4%, farine complète de blé 5,4%, arôme naturel, magnésium, émulsifiant : lécithines, poudres à lever (tartrates de potassium, carbonates de sodium, carbonates d'ammonium), sel de mer, amidon de blé, vitamines (E, PP, B6, B1, B9).\r\n\r\nFabriqué dans un atelier qui utilise des fruits à coque, du lait, du lupin, de la moutarde, des oeufs et du soja"
+  },
+  {
+    "gtin": "06111031005064",
+    "product_name": "Tonik",
+    "brand": "tonik",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:gluten",
+      "en:milk",
+      "en:soybeans"
+    ],
+    "ingredients_text": "Farine de Blé, Sucre, Huile Végétale Non-Hydrogénée (Palme), Perméat de Lactosérum (De Lait), Cacao Maigre en Poudre, Emulsifiant (E322-Lécithine de Soja), Poudre à Lever (E500ii), Arôme Artificiel (Vanilline), Sel. Contient: Lait, Blé (Gluten), Soja."
+  },
+  {
+    "gtin": "03229820100234",
+    "product_name": "Fourrés Chocolat Noir",
+    "brand": "Bjorg",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:gluten",
+      "en:milk",
+      "en:soybeans"
+    ],
+    "traces": [
+      "en:eggs",
+      "en:mustard",
+      "en:nuts",
+      "en:sesame-seeds",
+      "en:soybeans"
+    ],
+    "ingredients_text": "_Wheat_ flour 39%, dark chocolate 25% (cocoa mass, cane sugar, cocoa butter), unrefined brown cane sugar, wholemeal _wheat_ flour 15%, oleic sunflower oil, natural vanilla flavouring, skimmed _milk_ powder, sea salt, raising agents: ammonium carbonates, sodium carbonates, thickener: acacia gum, antioxidant: rosemary extract."
+  },
+  {
+    "gtin": "03175681851849",
+    "product_name": "Pomme Noisette",
+    "brand": "Gerblé",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:gluten",
+      "en:nuts"
+    ],
+    "traces": [
+      "en:lupin",
+      "en:milk",
+      "en:nuts",
+      "en:sesame-seeds",
+      "en:soybeans"
+    ],
+    "ingredients_text": "wheat flour 68,5 %, rapeseed oil, fruit sugar syrup, concentrated apple juice 5,3 %, roasted hazelnuts 5,3 %, wheat germ 5,2 %, chicory fibre: fructooligosaccharides, barley malt extract, natural apple flavour, emulsifier: rapeseed lecithins, wheat starch , baking powders (potassium tartrates, potassium carbonates), vitamins b1, b2,  b6, b9, pp and e, made in a workshop that uses other nuts, lupine, milk, sesame and soy,"
+  },
+  {
+    "gtin": "03251490332080",
+    "product_name": "Figue \u0026 son",
+    "brand": "Gerblé",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:gluten"
+    ],
+    "traces": [
+      "en:lupin",
+      "en:milk",
+      "en:nuts",
+      "en:sesame-seeds",
+      "en:soybeans"
+    ],
+    "ingredients_text": "Farine complète de blé 26,5%, farine de blé 26,1%, son de blé 20%, huile de colza, sucre non raffiné, pâte de figues 5,1%, arôme naturel de figue, poudres à lever (carbonates de potassium, carbonates de sodium, acide citrique), arôme naturel, émulsifiant: lécithines."
+  },
+  {
+    "gtin": "08410376009392",
+    "product_name": "Печиво zero sugar free",
+    "brand": "gullón",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:gluten",
+      "en:soybeans"
+    ],
+    "traces": [
+      "en:milk"
+    ],
+    "ingredients_text": "whole  wheat  flour 57,5 %, sweetener (maltitol), vegetable oil 16,5 % (sunflower high oleic), vegetable fibre 3,5 %, pea fiber 3,5 %, raising agents (sodium hydrogen carbonate and ammonium hydrogen carbonate), emulsifier ( soya  lecithin), salt, flavours,"
+  },
+  {
+    "gtin": "03175681851856",
+    "product_name": "Biscuit raisins",
+    "brand": "Gerblé",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:gluten"
+    ],
+    "traces": [
+      "en:lupin",
+      "en:milk",
+      "en:mustard",
+      "en:nuts",
+      "en:sesame-seeds",
+      "en:soybeans"
+    ],
+    "ingredients_text": "Farine de blé 60,4%, huile de colza, sucre non raffiné, pâte de raisins 6,9%, germe de blé 5,1%, amidon de blé, raisins secs 2,8%, fibres de blé, magnésium, émulsifiant lécithines, poudres à lever (tartrates de potassium, carbonates de sodium), arôme naturel, vitamines (B1, B6, B9, D, E)."
+  },
+  {
+    "gtin": "03362600011044",
+    "product_name": "Henry’s",
+    "brand": "Henry's",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:gluten"
+    ],
+    "traces": [
+      "en:milk",
+      "en:soybeans"
+    ],
+    "ingredients_text": "Farine de froment, sucre, graisse végétale, sucre inverti, agents levants ( bicarbonate d'ammonium - bicarbonate de sodium), sel, arome."
+  },
+  {
+    "gtin": "03168930163480",
+    "product_name": "Alvalle Gazpacho l'original",
+    "brand": "ALVALLé",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": null,
+    "traces": [
+      "en:gluten"
+    ],
+    "ingredients_text": "Tomate, poivron, concombre, oignon, huile d'olive vierge extra, vinaigre de vin, sel, ail, jus de citron."
+  },
+  {
+    "gtin": "08852018101024",
+    "product_name": "Yum Yum Chicken Flavour",
+    "brand": "YumYum",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:gluten",
+      "en:milk"
+    ],
+    "traces": [
+      "nl:mléka",
+      "nl:sezamu",
+      "nl:sóji"
+    ],
+    "ingredients_text": "Noodles: Wheat flour, Palm oil (contains antioxidant 319) Tapioca Starch Soup (flavouring flavour enhancers: 627, 631 yeast exact), Salt Acidity regulators: 500, 452,451, Thickeners: \r\nCondiments garlic and of (contains antioxidant: 320), Salt, Vegetables 621, 627, 631, Sugar, v Spices 40g 296 Chicken flavouring"
+  },
+  {
+    "gtin": "03036811363147",
+    "product_name": "PurSoup' Velouté de 10 légumes",
+    "brand": "liebig",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:celery",
+      "en:milk"
+    ],
+    "traces": [
+      "en:eggs",
+      "en:gluten"
+    ],
+    "ingredients_text": "water, vegetables 42% (tomato juice based on concentrate, potato, carrot, onion, leek, pumpkin, celery, peas, turnip, cauliflower), processed corn starch, rapeseed oil, cooking butter, salt, skim milk powder, flavors (contains milk),"
+  },
+  {
+    "gtin": "03036811368029",
+    "product_name": "Velouté de 12 legumes",
+    "brand": "Liebig",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:celery",
+      "en:milk"
+    ],
+    "traces": [
+      "en:\u001fen:\u001fen:\u001fen:\u001fen:\u001fen:\u001fen:\u001fen:\u001fen:\u001fen:\u001ffr:Traces de blé (gluten) et œuf\u001f"
+    ],
+    "ingredients_text": "water, tomato juice🧃🥤🍅 concentrate, potato, 🥔 carrot, 🥕 onion, 🧅poireau, pumpkin, corn starch, 🌽celeri, rapeseed oil, milk🥛 skimmed, butter 🧈efriine, pea cooking, cauliflower, turnip, salt, chourave, parsnips, natural flavours (contains milk), 🥛pee contain traces of wheat (gluten), and egg, 🥚"
+  },
+  {
+    "gtin": "05410188032161",
+    "product_name": "Gazpacho salmorejo",
+    "brand": "Alvalle, Pepsico",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:gluten"
+    ],
+    "traces": [
+      "en:mustard",
+      "en:soybeans"
+    ],
+    "ingredients_text": "Tomate (68%),eau,huile d'olive vierge extra (4,7%),chapelure de pain (BLÉ) (4,1%),oignon (3,6%),poivron rouge,concombre (1,4%),vinaigre de vin,sel,ail,teneur en fruits et légumes: 75%"
+  },
+  {
+    "gtin": "05410188027747",
+    "product_name": "Alvalle Gazpacho tomate, menthe \u0026 basilic 1 L",
+    "brand": "Alvalle",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": null,
+    "traces": [
+      "en:gluten"
+    ],
+    "ingredients_text": "Tomate (88%),courgette,jus de citron,oignon,huile d'olive vierge extra (0,9%),ail,basilic (0,5%),sel,menthe (0,15%),poivre blanc,teneur en légumes: 93%"
+  },
+  {
+    "gtin": "03036811460259",
+    "product_name": "Velouté de légumes",
+    "brand": "Liebig",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:celery",
+      "en:gluten",
+      "en:milk"
+    ],
+    "traces": [
+      "en:celery",
+      "en:eggs",
+      "en:gluten",
+      "en:milk"
+    ],
+    "ingredients_text": "water, carrot 26%, leek 10%, onion 5.7%, potato 5.7%, tomato puree 2.1%, pumpkin, celeriac, cooking butter, fresh cream, salt, natural pepper extract,"
+  },
+  {
+    "gtin": "08410300349051",
+    "product_name": "Caldo casero de pollo",
+    "brand": "Gallina Blanca",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:celery",
+      "en:eggs"
+    ],
+    "ingredients_text": "Water, chicken 14%, celery 0.5%, potato 0.4%, onion 0.2%, carrot 0.2%, leek 0.2%, pork fat, natural flavorings (with egg and celery), salt, spices."
+  },
+  {
+    "gtin": "03036811367008",
+    "product_name": "Mouliné de Légumes verts Verts",
+    "brand": "Liebig",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:celery",
+      "en:milk"
+    ],
+    "traces": [
+      "en:eggs",
+      "en:gluten"
+    ],
+    "ingredients_text": "water, potato*, zucchini*, leek*, green bean*, onion*, celeriac*, broccoli*, carrot*, spinach*, corn starch*, cream* powder, sea salt, natural flavours,\r\n*from organic farming,"
+  },
+  {
+    "gtin": "08711327615380",
+    "product_name": "Crème glacée Vanille de Madagascar",
+    "brand": "Carte D'Or, Les Essentiels, Unilever",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:milk"
+    ],
+    "ingredients_text": "rehydrated skimmed milk, cream (20%), sugar, glucose syrup, fructose, lactose and milk proteins, stabilizers (guar gum, locust bean seed flour, tara gum), emulsifier (mono - and diglycerides of fatty acids (vegetable origin)), natural vanilla flavor¹, crushed spent vanilla beans, color (carotenoids), vanilla extract¹, ¹rainforest alliance certified,"
+  },
+  {
+    "gtin": "08711327373105",
+    "product_name": "Cookie Dough Vanilla Ice Cream with Chunks of Chocolate Chip Cookie Dough",
+    "brand": "Ben \u0026 Jerry's, Magnum ICC Global Services B.V.",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:eggs",
+      "en:gluten",
+      "en:milk",
+      "en:soybeans"
+    ],
+    "ingredients_text": "Cream (MILK) (27%), water, condensed skimmed MILK sugar, WHEAT flour, brown sugar, free range EGG yolk, butter (MILK), vegetable oils (fully refined soybean, coconut), EGG, cocoa mass, fat-reduced cocoa powder, molasses vanilla extract, stabilisers (guar gum, carrageenan), salt, cocoa butter, natural vanila and brown sugar flavourings with other natural flavourings, natural butter flavouring (MILK), emulsifier (SOY lecithins), MILK fat"
+  },
+  {
+    "gtin": "08000500425183",
+    "product_name": "Glace au Nutella",
+    "brand": "Nutella, Ferrero",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:eggs",
+      "en:milk",
+      "en:nuts",
+      "en:soybeans"
+    ],
+    "traces": [
+      "en:eggs",
+      "en:gluten",
+      "en:nuts"
+    ],
+    "ingredients_text": "reconstituted skimmed milk, sugar, pasteurized cream, sunflower oil, hazelnuts (6,5%), glucose syrup, skimmed milk powder, coconut oil, low-fat cocoa (3,5%), dextrose, emulsifiers: lecithins ( soy ), propylene glycol esters of fatty acids, mono - and diglycerides of fatty acids, stabilizers: locust bean gum, cellulose gum, guar gum, carrageenan, flavorings,\r\n\r\nmay contain cereals containing gluten, eggs, almonds, walnuts, cashew nuts, pecan nuts, pistachios and macadamia nuts,"
+  },
+  {
+    "gtin": "08711327608665",
+    "product_name": "Glaces Amande",
+    "brand": "Magnum",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:milk",
+      "en:nuts"
+    ],
+    "traces": [
+      "en:nuts"
+    ],
+    "ingredients_text": "rehydrated skimmed milk, sugar, water, cocoa butter¹, coconut oil, skimmed milk powder, almonds, glucose syrup, concentrated butter, glucose-fructose syrup, cocoa mass¹, lactose and milk proteins, emulsifiers (e471 (plant-based), lecithins), stabilizers (guar gum, locust bean seed flour, tara gum, carrageenans), crushed spent vanilla beans, natural vanilla flavor¹ (including milk),  natural vanilla flavouring, colouring (carotenoids),"
+  },
+  {
+    "gtin": "03415581101928",
+    "product_name": "Vanilla Ice Cream",
+    "brand": "Häagen-Dazs",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:eggs",
+      "en:milk"
+    ],
+    "ingredients_text": "Fresh cream (39.2%), condensed skimmed milk, sugar, water, egg yolk, vanilla extract."
+  },
+  {
+    "gtin": "08711327370708",
+    "product_name": "Chocolate Fudge Brownie",
+    "brand": "Ben \u0026 Jerry's",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:eggs",
+      "en:gluten",
+      "en:milk",
+      "en:soybeans",
+      "de:Lait",
+      "de:Œufs"
+    ],
+    "traces": [
+      "en:\u001fen:\u001fen:eggs\u001f  \u001fen:gluten\u001f  \u001fen:milk\u001f"
+    ],
+    "ingredients_text": "Cream (MILK) (23) waler sugar, condense Chocolate ice cream with broware pieces (12% Wee WK, cocoa powder (4.5%), flours (WHEAT, malted BARLE yok EGG, died EGG white, stabilisers (guar gum, carrageenan), salt reduced cocoa powder (1%), fully refined soybean oil, free range b veilla extrad, raining agent (sodium bicarbonate) Sugar, cocoa, vani mass"
+  },
+  {
+    "gtin": "03415581101010",
+    "product_name": "Vanilla",
+    "brand": "Häagen-Dazs",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:eggs",
+      "en:milk",
+      "nl:Eigelb",
+      "nl:Kondensmagermilch",
+      "nl:Sahne"
+    ],
+    "ingredients_text": "fresh cream (39.2%), skimmed condensed milk, sugar, water, egg yolk, vanilla extract"
+  },
+  {
+    "gtin": "08711327615045",
+    "product_name": "Chocolat Noir avec des morceaux de chocolat noir",
+    "brand": "Carte D'or, Les Essentiels",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:milk"
+    ],
+    "ingredients_text": "LAIT écrémé réhydraté, CRÈME (12%), sucre, eau, sirop de glucose, cacao maigre en poudre1 (7,5%), sirop de glucose-fructose, BEURRE concentré, pâte de cacao1 (2%), LACTOSE et protéines de LAIT, émulsifiants (mono - et diglycérides d'acides gras (d'origine végétale), lécithines), beurre de cacao1 (0,2%), stabilisants (farine de graines de caroube, gomme guar, gomme Tara), sel, arôme naturel de vanille, arôme naturel. 1Certifié Rainforest Alliance"
+  },
+  {
+    "gtin": "03760039982056",
+    "product_name": "Crème glacée Vanille gousses entières de Madagascar 450G/750ml",
+    "brand": "L'Angélys",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:eggs",
+      "en:milk"
+    ],
+    "ingredients_text": "Eau, sucre, LAIT demi écrémé, jaune d'OEUF de poules élevées en plein air, CREME, sirop de glucose, LAIT écrémé en poudre, BEURRE concentré, gousses de vanille¹ Bourbon 0,45%, émulsifiants (mono-et diglycérides d'acides gras (origine colza)), stabilisants (farine de graines de caroube, gomme de guar). ¹Origine Madagascar"
+  },
+  {
+    "gtin": "03175681259089",
+    "product_name": "céréales et légumes, façon pad thaï, bio",
+    "brand": "Céréal BIO",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:eggs",
+      "en:gluten",
+      "en:nuts",
+      "en:orange",
+      "en:soybeans"
+    ],
+    "traces": [
+      "en:celery",
+      "en:milk",
+      "en:mustard",
+      "en:sesame-seeds",
+      "fr:Sesame-celeri"
+    ],
+    "ingredients_text": "Spaghetti* précuits 40% (eau, semoule de ble dur*, blanc d'œuf en poudre), eau, carottes jaunes* 5,4%, carottes 5%, oignons 4,6%, huile de tournesol\u0026quot;, protéines de soja* texturées, poivrons verts 3,2%, poivrons rouges 2,3%, amandes 1,8%, jus de citron* 1,7%, sauce soja 1,5% (eau, soja* blé, sel de mer, alcool*), purée de citron vert confit 1% (citrons verts* 0,86%, sel de mer, vinaigre d'alcool*), coriandre\u0026quot;, sauce sriracha* 0,75% (piment*, ail*, sel, sucre de canne*, vinaigre d'alcool* et de vin rouge, dattes*, oranges*), sel de mer, oignons en poudre, gingembre en poudre. Ingrédients issus de l'agriculture biologique."
+  },
+  {
+    "gtin": "00089686120073",
+    "product_name": "Indomie instant noodles baladi chicken flavor",
+    "brand": "indomie",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:gluten",
+      "en:soybeans"
+    ],
+    "ingredients_text": "Noodles (Wheat flour, edible vegetable oil (palm), salt, acidity regulators (potassium carbonate, sodium carbonate, sodium polyphosphate), thickener (guar gum), colouring (riboflavin), antioxidant (TBHQ)), Seasoning Powder (Salt, monosodium glutamate sugar, artificial chicken flavour powder, soy sauce powder, white pepper, garlic powder, ginger. Chili powder)"
+  },
+  {
+    "gtin": "08901058017687",
+    "product_name": "maggi",
+    "brand": "Maggi",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:gluten"
+    ],
+    "traces": [
+      "en:gluten",
+      "en:milk",
+      "en:soybeans"
+    ],
+    "ingredients_text": "Refined maida,palm oil,lodized salt,wheat gluten,thickeners(500\u0026412),acidity regulators(501\u0026500)and humectant(451(i)), MASALA TASTEMAKER\u0026quot;:\nMixed Spices (26.2%) (Onion powder, Coriander powder, Red chilli powder, Turmeric powder, Garlic powder, Cumin powder, Aniseed powder, Ginger powder, Fenugreek powder, Black pepper powder, Toasted onion powder, Clove powder, Green cardamom powder, Nutmeg powder), Hydrolysed groundnut protein, Refined wheat flour (Maida), Sugar, Starch, Palm oil, lodized salt, Thickener (508), Acidity regulator (330), Flavour enhancer (635), Colour (150d), Mineral and Wheat gluten.\nAnd NOODLES:\n\nRefined wheat flour (Maida), Palm oil, lodized salt, Wheat gluten, Thickeners (508 \u0026 412).\n\nAcidity regulators (501(i) \u0026 500(i)) and Humectant (451(i)).\nAllergen Note: Contains Wheat \u0026 Nut. May contain Milk, Oats and Soy ."
+  },
+  {
+    "gtin": "08076809512268",
+    "product_name": "Girandole Torsades Nº34",
+    "brand": "Barilla",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:gluten"
+    ],
+    "traces": [
+      "en:mustard",
+      "en:soybeans",
+      "de:Moutarde"
+    ],
+    "ingredients_text": "Durumhvete"
+  },
+  {
+    "gtin": "08722700027775",
+    "product_name": "Soupe Thai  (Nouilles, champignons et pousses de soja)  د تای سوپ",
+    "brand": "Knorr",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:eggs",
+      "en:gluten",
+      "en:milk",
+      "en:mustard",
+      "en:soybeans"
+    ],
+    "traces": [
+      "en:celery",
+      "en:\u001fen:celery\u001f"
+    ],
+    "ingredients_text": "pâte chinoise : 36% (semoule de BLÉ tendre, sel, blanc d'ŒUF), amidon de pomme de terre, dextrose, graisse de palme, sel, champignon de Paris¹ : 2,8%, pousse de SOJA (haricot mungo) : 2,6%, lactose (LAIT), chlorure de potassium, maltodextrine, extrait de levure, protéines végétales hydrolysées, noix de coco, lactosérum (LAIT), carotte¹ : 1,1%, arômes, protéines de LAIT, graisse de poule, épinard : 0,8%, champignon noir : 0,8%, oignon de printemps : 0,6%, sucre, farine de BLÉ, jus de citron, épices : 0,4% (curry (coriandre, curcuma, graines de fenouil, graines de cumin, poivre, graines de fenugrec, piment de Cayenne, cardamome, graines de MOUTARDE), piment de Cayenne), sauce soja (graines de SOJA, BLÉ), huile de maïs, antioxydant : extraits de romarin. Peut contenir : céleri. \r\n¹Ingrédients issus de l'agriculture durable."
+  },
+  {
+    "gtin": "08801073116467",
+    "product_name": "Buldak HOT Chicken Flavour Ramen Carbonara Flavour",
+    "brand": "Samyang",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:celery",
+      "en:gluten",
+      "en:soybeans"
+    ],
+    "ingredients_text": "Nudeln (77,4%): Weizenmehl(Gluten), Palmöl, Modifizierte Stärke (Kartoffel, Tapioka), Salz, Emulgatoren (E 422, E 322 [Soja]), Verdickungsmittel (E 412), Säureregulatoren (E 501, E 500, E 339, E 330), Antioxidationsmittel (E 306), Grüntee-Aroma, Farbstoff (E 101)\r\n\r\nFlüssige Soße (12,9%): Wasser, Aroma Mit Hühnerfleischgeschmack (Weizen, Gluten, Soja, Sellerie), Sojasauce (Wasser, Sojabohnen, Weizen (Gluten), Salz), Fructose, Geschmacksverstärker (E 635), Knoblauch, Aromen, Säureregulator (E 270), Süßungsmittel (E 960), Zucker, Habanero-Chili-Gewürz (Enthält Trennmittel (E 551), Geschmacksverstärker (E 631, E 627), Farbstoff (E 160c), Sojabohnenöl, Zwiebel, Geschmacksverstärker (E 621), Chili, Rotes Chiliesamenöl, Chili-Pulver, Knoblauch, Verdickungsmittel (E 1420), Chili-Extrakt, Farbstoff (E 160c), Schwarzer Pfeffer Gemahlen, Curry-Gewürz (Enthält Geschmacksverstärker (E 635)), Säureregulator (E 270)\r\n\r\nPulverbrühe (9,7%): Aromen (Soja), Zucker, Salz, Verdickungsmittel (E 1420), Krause Petersilie, Sojabohnenöl, Knoblauchpulver (Enthält Säureregulator (E 330)), Pfeffer-Gewürz (Enthält Säureregulator (E 341))\r\n\r\nAllergene: _Weizen, Gluten, Soja, Sellerie_"
+  },
+  {
+    "gtin": "04002359650178",
+    "product_name": "Vermicelles de Riz",
+    "brand": "suzi wan",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": null,
+    "traces": [
+      "en:sulphur-dioxide-and-sulphites"
+    ],
+    "ingredients_text": "rice flour 100%,"
+  },
+  {
+    "gtin": "03229820181363",
+    "product_name": "Ramen soja caramel",
+    "brand": "Tanoshi",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:gluten",
+      "en:sesame-seeds",
+      "en:soybeans"
+    ],
+    "ingredients_text": "precooked japanese noodles from china: wheat flour 60%, water, modified starch, wheat gluten, salt, soybean oil, acidity regulators: lactic acid, triphosphates, soy-caramel seasoning: sugar, salt, yeast extract, corn maltodextrin, sesame seeds, caramel 0.1% (sugar), spices (white pepper, garlic, ginger), sunflower oil, flavor enhancer: 5'-ribonucleotide disodium, soy sauce powder 0.06% (salt,  sugar, yeast extract, corn maltodextrin, soybeans, sesame seeds, spices (garlic, white pepper, ginger), color: paprika extract, anti-caking agent: sodium carbonates, sunflower oil), colors: ammonium sulphite caramel, paprika extract, anti-caking agent: sodium carbonates,"
+  },
+  {
+    "gtin": "03240931546353",
+    "product_name": "Tagliatelles aux œufs frais",
+    "brand": "Lustucru, Lustucru selection",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:eggs",
+      "en:gluten"
+    ],
+    "traces": [
+      "en:mustard",
+      "en:soybeans"
+    ],
+    "ingredients_text": "Semoule de BLE dur, eau, ŒUFS frais issus de poules élevées en Plein Air 10.4%. Peut contenir des traces de soja et moutarde. Conditionné sous atmosphère protectrice."
+  },
+  {
+    "gtin": "03019081238643",
+    "product_name": "Sardines Huile d'Olive Vierge Extra",
+    "brand": "PARMENTIER",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:fish"
+    ],
+    "ingredients_text": "sardines , extra virgin olive oil, salt,"
+  },
+  {
+    "gtin": "06111162000181",
+    "product_name": "Joly Thon Entier",
+    "brand": "Joly",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:fish"
+    ],
+    "ingredients_text": "Thon, huile végétale, sel."
+  },
+  {
+    "gtin": "08410111211202",
+    "product_name": "Atun",
+    "brand": "ISABEL, Isabel",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:fish"
+    ],
+    "ingredients_text": "القيمة الغذائية المشار القيم(إليها في 0 10غ من المنتوج )المقطر"
+  },
+  {
+    "gtin": "03263670162219",
+    "product_name": "Plain Sardines",
+    "brand": "Connétable",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:fish"
+    ],
+    "ingredients_text": "Sardines,water,lemon pulp,salt."
+  },
+  {
+    "gtin": "08410111000707",
+    "product_name": "Atún con tomate",
+    "brand": "Isabel",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:fish"
+    ],
+    "ingredients_text": "Thon 65 et sauce tomate 35 (eau, hui\\e de soja, concentré de tomate, glucose, sucre, sel et arôme)."
+  },
+  {
+    "gtin": "03165950211726",
+    "product_name": "Filet de maquereaux au naturel",
+    "brand": "Saupiquet",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:fish"
+    ],
+    "ingredients_text": "Filets de maquereaux, eau, sel"
+  },
+  {
+    "gtin": "03019081241582",
+    "product_name": "Filet de maquereaux grillés nature",
+    "brand": "Petit Navire",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:fish"
+    ],
+    "ingredients_text": "grilled mackerel fillets (90%), water, salt"
+  },
+  {
+    "gtin": "03019081241216",
+    "product_name": "Filets de maquereaux vin blanc \u0026 aromates",
+    "brand": "Petit Navire",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:fish",
+      "en:sulphur-dioxide-and-sulphites"
+    ],
+    "traces": [
+      "en:celery",
+      "en:eggs",
+      "en:milk",
+      "en:mustard",
+      "en:soybeans"
+    ],
+    "ingredients_text": "_Mackerel_ fillets 60%, water, carrots 5%, onions 5%, alcohol vinegar, pickles 1,7% (pickles, alcohol vinegar, salt, _sulfites_), white wine vinegar, white wine 1%, salt, lemon juice concentrate, black pepper, bay leaf, thyme"
+  },
+  {
+    "gtin": "03019081241193",
+    "product_name": "Filets maquereaux moutarde à l'ancienne",
+    "brand": "Petit Navire",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:fish",
+      "en:mustard"
+    ],
+    "traces": [
+      "en:celery",
+      "en:eggs",
+      "en:milk"
+    ],
+    "ingredients_text": "mackerel fillet (56%), water, mustard (9%), (water, mustard seeds, alcohol vinegar, salt) sunflower oil, alcohol vinegar, old-fashioned mustard (2.2%) (water, mustard seeds, alcohol vinegar, salt) apple cider vinegar, processed corn starch, salt, spices, dehydrated shallots, thickeners, xanthan gum and guar gum,"
+  },
+  {
+    "gtin": "08434165437418",
+    "product_name": "Cuetara Digesta Light 200G Marie Cookies",
+    "brand": "Cuétara",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:gluten",
+      "en:milk",
+      "en:sulphur-dioxide-and-sulphites"
+    ],
+    "traces": [
+      "en:eggs",
+      "en:soybeans"
+    ],
+    "ingredients_text": "ENRICHED FLOUR WITH VITAMINS AND MINERAL (WHEAT FLOUR, NIACIN, FERROUS SULFATE, THIAMINE HYDROCHLORIDE, RIBOFLAVIN, FOLIC ACDID, HIgh oleic SUNFLOWER OIL 17%, SWEETENER (MALTITOL* 15%), CHICORY ROOT FIBER, SALT, LEAVENING AGENTS (AMMONIUM BICARBONATE, SODIUM BICARBONATE), BARLEY MALT EXTRACT, ARTIFICIAL FLAVOURINGS (VANILLA, COCONUT), N IDENTICAL FLAVOURING (BUTTER), FLOUR TREATMENT AGENT (SODIUM METABISULPHITE). CONTAINS WHEAT, BARLEY, MILK AND SULPHITE. MAY CONTAIN TRACES OF EGG AND SOY."
+  },
+  {
+    "gtin": "03023470020016",
+    "product_name": "Roudor",
+    "brand": "St Michel",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:eggs",
+      "en:gluten",
+      "en:milk"
+    ],
+    "traces": [
+      "en:nuts",
+      "en:sesame-seeds",
+      "en:soybeans",
+      "en:en-en-nuts-en-sesame-seeds-en-en-en-en-en-nuts-en-sesame-seeds-en-soybeans"
+    ],
+    "ingredients_text": "Wheat flour 52%, butter 30%, sugar, eggs, salt, raising agents: ammonium carbonates, sodium carbonates and citric acid. May contain: nuts, sesame seeds, soya."
+  },
+  {
+    "gtin": "07622210444127",
+    "product_name": "Melloeux Fruit Rouges",
+    "brand": "Belvita",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:gluten",
+      "en:milk",
+      "en:soybeans"
+    ],
+    "traces": [
+      "en:milk"
+    ],
+    "ingredients_text": "Céréales 44,1 % [farine de BLÉ 23,7 %, céréales complètes 17,8 % (sarrasin complet concassé 6,9 %, gruau d'AVOINE 6,9 %, flocons d'AVOINE 1 %, farine complète d'épeautre (BLÉ) 1 %, farine complète d'ORGE 1 %, farine complète de BLÉ 1 %), farine de riz 2,5 %, farine de BLÉ malté 0,1 %], sucre, huile de colza, amidon modifié, canneberges séchées confites 6 % (sucre, canneberges 2 %, huile de tournesol), fibres de racine de chicorée, isomaltulose, humectant (glycérol), raisins de Corinthe 2 %, minéraux (carbonate de calcium, carbonate de magnésium, fer élémentaire), émulsifiant (lécithines de SOJA), jus de groseille concentré 0,3 %, arômes, sel, poudre à lever (carbonates de sodium), gluten de BLÉ, dextrose, amidon."
+  },
+  {
+    "gtin": "06111249960964",
+    "product_name": "Capri choco",
+    "brand": "Excelo",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:gluten",
+      "en:milk",
+      "en:nuts",
+      "en:soybeans"
+    ],
+    "ingredients_text": "Sugar, Hydrogenated vegetable fats (Palm), Soft wheat flour, cocoa powder (10%), Hazelnut paste, Cocoa mass, Milk permeate powder, Dextrose, Raising powders: (Sodium bicarbonate, sodium acid pyrophosphate), Native corn starch, vegetable emulsifier (soya lecithin), Salt. Contains wheat (cereals containing gluten), soya, milk, and hazelnut. May contain: Eggs \u0026 Peanuts."
+  },
+  {
+    "gtin": "00085315054108",
+    "product_name": "Sura Tanmen",
+    "brand": "Sun Noodle",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "ABSENT",
+    "allergens": []
+  },
+  {
+    "gtin": "00850073087008",
+    "product_name": "Brown Butter Chocolate Chunk",
+    "brand": "bakr",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:eggs",
+      "en:gluten",
+      "en:milk"
+    ],
+    "ingredients_text": "wheat flour, brown cane sugar, chocolate chunks (cane sugar, unsweetened chocolate, cocoa butter), salted butter, egg, cane sugar, vanilla extract, baking soda, sea salt"
+  },
+  {
+    "gtin": "00860864000307",
+    "product_name": "Power play fudge ice cream",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:gluten",
+      "en:milk",
+      "en:peanuts",
+      "en:soybeans"
+    ],
+    "ingredients_text": "Cream, sugar, milk fudge ripple (corn syrup, nonfat milk, high fructose corn syrup, hydrogenated vegetable oil (coconut, soybean), cocoa (processed with alkali), salt, xanthan gum, artificial flavor), corn syrup, broken cookies (sugar, wheat flour, vegetable shortening (partially hydrogenated soybean and/or cotton seed oil), cocoa (processed with alkali), degerminated yellow corn flour, invert sugar, corn starch, salt, vanilla, nonfat milk), fudge filled pucks (sugar, coconut oil, cocoa (processed with alkali), peanut oil, nonfat milk, whole milk, whey, salt, soy lecithin, natural flavors), nonfat dried milk, whey, dextrose, soy lecithin, guar gum, xanthan gum, carrageenan, yellow 5."
+  },
+  {
+    "gtin": "00858792003323",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "ABSENT",
+    "allergens": []
+  },
+  {
+    "gtin": "00000000175029",
+    "product_name": "Imitation Crab Meat Sticks",
+    "brand": "Island Pacific",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "ABSENT",
+    "allergens": []
+  },
+  {
+    "gtin": "00042272005833",
+    "product_name": "Lentil Soup",
+    "brand": "Amy's Organic Soups",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:celery"
+    ],
+    "ingredients_text": "Filtered water, organic green lentils, organic celery, organic carrots, organic onions, organic potatoes, organic extra virgin olive oil, sea salt, organic spices."
+  },
+  {
+    "gtin": "00100000010150",
+    "product_name": "Chicken Filet",
+    "brand": "Fresh To You",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "ABSENT",
+    "allergens": []
+  },
+  {
+    "gtin": "04056489125846",
+    "product_name": "Aprikosenkekse mit Kokosraspeln",
+    "brand": "Eridanous, Lidl",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:gluten",
+      "en:milk",
+      "en:soybeans",
+      "de:blé"
+    ],
+    "ingredients_text": "Farine de blé, 30% fourrage à l'abricot (14,7%² abricot, sucre, sirop de glucose-fructose, gélifiant: pectines; acidifiant: acide citrique; conservateur: sorbate de Fremstillet af:/Geproduceerd door:/Elaboré par:/Hergestellt von:/Prodotto da: Violanta SA, 6th km, GR-Trikala-Karditsa, potassium; arômes), margarine (BE: préparation de graisse végétale) Griekenland/Grèce/Griechenland/Grecia (huile de palme, huile de tournesol, eau, émulsifiant: mono - et For:/Voor:/Pour:/Für:/Prodotto per: Lidl Stiftung \u0026 Co. KG, diglycérides d'acides gras**; sel de cuisine), 15% glaçage à la noix de Stiftsbergstrasse 1, DE-74167 Neckarsulm, Duitsland/Allemagne/ coco (7,5% noix de coco hachée, huile de palme, sucre, lait entier Deutschland/Germania. en poudre, cacao en poudre, émulsifiant: lécithines (soja); arôme), sucre, 3% cuf***, jus d'orange à base de concentré, sirop de glucose, lait entier en poudre, poudres à lever: diphosphates, carbonate acide de sodium; arômes. 'Certifié Rainforest Alliance."
+  },
+  {
+    "gtin": "00012345678905",
+    "product_name": "Sphère plaisir",
+    "brand": "Alteña's Nopales, Laugar",
+    "source": "OPEN_FOOD_FACTS",
+    "fetched_at": "2026-09-13T18:14:18Z",
+    "coverage": "COMPLETE",
+    "allergens": [
+      "en:eggs",
+      "en:gluten",
+      "en:mustard",
+      "en:sulphur-dioxide-and-sulphites"
+    ],
+    "ingredients_text": "Courgette (40 %), _ŒUF_, Farines (avoine, pois chiche), bicarbonate, _MOUTARDE_ à L'Ancienne (dont Vinaigre d'alcool, graines de _MOUTARDE_, eau, sel, vin blanc 4,8 % (dont _SULFITES_), sucre, arôme naturel, acidifiant : acide lactique), Cœur: _MOUTARDE_ au miel (dont Sucre, eau, vinaigre d'alcool, graines de _MOUTARDE_, miel 8%, sel, épices, herbes, colorant : caramel E150c, acidifiant : acide citrique, conservateur : E224 (_SULFITES_))"
+  }
+]

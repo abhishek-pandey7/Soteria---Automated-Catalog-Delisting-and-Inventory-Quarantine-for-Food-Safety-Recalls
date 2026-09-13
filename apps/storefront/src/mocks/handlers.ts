@@ -1,22 +1,22 @@
-import { http, HttpResponse, passthrough } from 'msw'
+import { http, HttpResponse } from 'msw'
 
 const RESOLUTION = 'http://localhost:8081'
 const RESCUE = 'http://localhost:8083'
 
 const rescue = {
     rescue_id: 'r-mock-1',
-    incident_id: 'inc-fda_enforcement-f-2291-2026',
+    incident_id: 'inc-fda_enforcement-h-1245-2026',
     order_id: 'ORD-1001',
     status: 'PROPOSED',
-    hazard: 'Undeclared peanut',
+    hazard: 'Potential foreign object contamination: rubber pieces',
     proposed_at: '2026-09-12T10:00:00Z',
     expires_at: '2026-09-14T10:00:00Z',
     affected_line: {
         line_item_id: 'li-1',
-        gtin: '00041196910537',
-        sku: 'SF-GB-12',
-        product_title: 'Sunfield Farms Chewy Granola Bars 12 ct',
-        lot_code: '8H-1132',
+        gtin: '00860864000307',
+        sku: 'SOT-000307',
+        product_title: 'Power play fudge ice cream',
+        lot_code: '26184',
         quantity: 2,
         unit_price: { amount_minor: 449, currency: 'USD' },
     },
@@ -57,18 +57,18 @@ export const handlers = [
                 gtin,
                 lot_code: lot,
                 verdict: 'AFFECTED',
-                incident_id: 'INC-2026-0412',
-                hazard: RECALLED[lot],
+                incident_id: 'inc-fda_enforcement-h-1245-2026',
+                hazard: 'Potential foreign object contamination: rubber pieces',
                 confidence: 0.97,
                 checked_at: new Date().toISOString(),
             })
         }
 
-        if (lot === 'L9999Z') {
+        if (lot === 'CLEAN-A' || lot === 'CLEAN-B') {
             return HttpResponse.json({
                 gtin,
                 lot_code: lot,
-                verdict: 'UNKNOWN_LOT',
+                verdict: 'SAFE',
                 checked_at: new Date().toISOString(),
             })
         }
@@ -77,47 +77,47 @@ export const handlers = [
             return new HttpResponse(null, { status: 500 })
         }
 
-        return HttpResponse.json({
-            gtin,
-            lot_code: lot,
-            verdict: 'SAFE',
-            checked_at: new Date().toISOString(),
-        })
-    }),
-    http.get('https://world.openfoodfacts.org/api/v2/product/:gtin', ({ params }) => {
-        const gtin = params.gtin as string
-
-        // Only the fixture barcodes are mocked; real barcodes go to the real
-        // Open Food Facts API so the store shows live allergen data.
-        if (!['0000000000000', '1111111111111', '00041196910537', '041196910537'].includes(gtin)) {
-            return passthrough()
-        }
-
-        if (gtin === '0000000000000') {
-            return HttpResponse.json({ status: 0 })
-        }
-
-        if (gtin === '1111111111111') {
+        // SafeLotBadge's Live stories drive the badge on these codes. They are
+        // kept working deliberately: those stories are out of scope to edit, and
+        // the fall-through below would otherwise turn LiveSafe and LiveAffected
+        // into UNKNOWN_LOT.
+        if (lot === 'L2408B') {
             return HttpResponse.json({
-                status: 1,
-                product: {
-                    product_name: 'Unknown Brand Crackers',
-                    ingredients_text: 'Wheat flour, vegetable oil, salt',
-                },
+                gtin,
+                lot_code: lot,
+                verdict: 'AFFECTED',
+                incident_id: 'INC-2026-0412',
+                hazard: 'Undeclared peanut',
+                confidence: 0.97,
+                checked_at: new Date().toISOString(),
             })
         }
 
+        if (lot === 'L2408A') {
+            return HttpResponse.json({
+                gtin,
+                lot_code: lot,
+                verdict: 'SAFE',
+                checked_at: new Date().toISOString(),
+            })
+        }
+
+        // Anything else, including the ZZ-0000 preset, L9999Z and a typo: a code
+        // this store cannot place is not a safe code. The real service says the
+        // same ("an unidentified lot is not a safe lot"), and SAFE as a catch-all
+        // is what let the recalled lot read as fine.
         return HttpResponse.json({
-            status: 1,
-            product: {
-                product_name: 'Nutella',
-                brands: 'Nutella, Ferrero',
-                allergens_tags: ['en:milk', 'en:nuts', 'en:soybeans'],
-                traces_tags: [],
-                ingredients_text: 'Sugar, palm oil, hazelnuts 13%, skimmed milk powder, cocoa',
-            },
+            gtin,
+            lot_code: lot,
+            verdict: 'UNKNOWN_LOT',
+            checked_at: new Date().toISOString(),
         })
     }),
+    // No Open Food Facts handler. The allergen layer reads the committed
+    // snapshot (src/api/allergens.snapshot.json) and never calls OFF, so there is
+    // no request left to intercept. Mocking it would only hide a regression: if a
+    // live call ever comes back, it should fail loudly rather than be answered
+    // here.
     http.get(`${RESCUE}/healthz`, () =>
         HttpResponse.json({ status: 'ok', service: 'order-rescue-service', bus: 'up' })
     ),

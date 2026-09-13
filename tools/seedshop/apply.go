@@ -300,7 +300,7 @@ func ensureProduct(ctx context.Context, s store, p SeedProduct, sellingLoc strin
 	// move units that are not there.
 	var activated struct {
 		InventoryActivate struct {
-			UserErrors []struct{ Message string }
+			UserErrors []struct{ Message, Code string }
 		} `json:"inventoryActivate"`
 	}
 	vars := map[string]any{"inventoryItemId": inventoryItemID, "locationId": sellingLoc, "available": p.Units()}
@@ -308,7 +308,13 @@ func ensureProduct(ctx context.Context, s store, p SeedProduct, sellingLoc strin
 		return fmt.Errorf("set stock: %w", err)
 	}
 	if len(activated.InventoryActivate.UserErrors) > 0 {
-		return fmt.Errorf("set stock: %s", activated.InventoryActivate.UserErrors[0].Message)
+		msg := activated.InventoryActivate.UserErrors[0].Message
+		// If inventory is already active, skip this product - it's a retry
+		if strings.Contains(msg, "already active at the location") {
+			fmt.Printf("    (inventory already active, skipped)\n")
+		} else {
+			return fmt.Errorf("set stock: %s", msg)
+		}
 	}
 
 	return setLots(ctx, s, variantID, p)
