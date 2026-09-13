@@ -320,13 +320,29 @@ func (c *Client) SetAvailable(ctx context.Context, inventoryItemID, locationID s
 	return userErrors("inventorySetQuantities", out.R.UserErrors)
 }
 
-const mMoveQuantities = `mutation MoveAvailable($input: InventoryMoveQuantitiesInput!) {
-  inventoryMoveQuantities(input: $input) {
+// inventoryMoveQuantities cannot do this: it only moves units between quantity
+// names (available -> reserved) at ONE location and rejects a cross-location
+// move outright ("The quantities can't be moved between different locations").
+// A selling -> Quarantine move is a paired adjustment, -N here and +N there,
+// in a single adjustment group so the store never sees one half without the
+// other.
+const mAdjustQuantities = `mutation MoveAvailable($input: InventoryAdjustQuantitiesInput!) {
+  inventoryAdjustQuantities(input: $input) {
     inventoryAdjustmentGroup { id }
     userErrors { field message code }
   }
 }`
 
+const mActivateInventory = `mutation Activate($inventoryItemId: ID!, $locationId: ID!) {
+  inventoryActivate(inventoryItemId: $inventoryItemId, locationId: $locationId, available: 0) {
+    inventoryLevel { id }
+    userErrors { field message }
+  }
+}`
+
+// MoveAvailable moves quantity units of "available" stock from one location to
+// another. A destination that has never stocked the item (a freshly created
+// Quarantine location) is activated on demand.
 func (c *Client) MoveAvailable(ctx context.Context, inventoryItemID, fromLocationID, toLocationID string, quantity int, reason string) error {
 	if quantity <= 0 {
 		return errors.New("shopify: move quantity must be positive")
@@ -334,25 +350,50 @@ func (c *Client) MoveAvailable(ctx context.Context, inventoryItemID, fromLocatio
 	if reason == "" {
 		reason = "correction"
 	}
+	err := c.adjust(ctx, inventoryItemID, fromLocationID, toLocationID, quantity, reason)
+	var ue *UserErrors
+	if errors.As(err, &ue) && ue.Errors[0].Code == "ITEM_NOT_STOCKED_AT_LOCATION" {
+		if aerr := c.ActivateInventory(ctx, inventoryItemID, toLocationID); aerr != nil {
+			return aerr
+		}
+		err = c.adjust(ctx, inventoryItemID, fromLocationID, toLocationID, quantity, reason)
+	}
+	return err
+}
+
+func (c *Client) adjust(ctx context.Context, inventoryItemID, fromLocationID, toLocationID string, quantity int, reason string) error {
 	var out struct {
 		R struct {
 			UserErrors []UserError `json:"userErrors"`
-		} `json:"inventoryMoveQuantities"`
+		} `json:"inventoryAdjustQuantities"`
 	}
 	input := map[string]any{
+		"name":                 "available",
 		"reason":               reason,
 		"referenceDocumentUri": referenceURI("move"),
-		"changes": []map[string]any{{
-			"inventoryItemId": inventoryItemID,
-			"quantity":        quantity,
-			"from":            map[string]any{"locationId": fromLocationID, "name": "available"},
-			"to":              map[string]any{"locationId": toLocationID, "name": "available"},
-		}},
+		"changes": []map[string]any{
+			{"inventoryItemId": inventoryItemID, "locationId": fromLocationID, "delta": -quantity},
+			{"inventoryItemId": inventoryItemID, "locationId": toLocationID, "delta": quantity},
+		},
 	}
-	if err := c.Do(ctx, mMoveQuantities, map[string]any{"input": input}, &out); err != nil {
+	if err := c.Do(ctx, mAdjustQuantities, map[string]any{"input": input}, &out); err != nil {
 		return err
 	}
-	return userErrors("inventoryMoveQuantities", out.R.UserErrors)
+	return userErrors("inventoryAdjustQuantities", out.R.UserErrors)
+}
+
+// ActivateInventory makes the item stockable at a location, at zero.
+func (c *Client) ActivateInventory(ctx context.Context, inventoryItemID, locationID string) error {
+	var out struct {
+		R struct {
+			UserErrors []UserError `json:"userErrors"`
+		} `json:"inventoryActivate"`
+	}
+	vars := map[string]any{"inventoryItemId": inventoryItemID, "locationId": locationID}
+	if err := c.Do(ctx, mActivateInventory, vars, &out); err != nil {
+		return err
+	}
+	return userErrors("inventoryActivate", out.R.UserErrors)
 }
 
 // referenceURI tags inventory changes so the audit dossier can trace them.
