@@ -85,6 +85,12 @@ func Subscription() bus.Subscription {
 
 // Handle extracts one raw recall notice. Model/transport failures return an
 // error so the bus retries; a notice with no usable text is acked and skipped.
+// ExtractTimeout bounds one model call from the bus handler. Generous on
+// purpose: a per-minute rate limit is waited out here rather than failed,
+// which holds the message (the queue is the buffer) instead of burning one
+// of its five deliveries. Must stay under the broker's consumer_timeout.
+const ExtractTimeout = 5 * time.Minute
+
 func (s *Service) Handle(ctx context.Context, env events.Envelope) error {
 	s.bump(func(st *stats) { st.Received++ })
 	var raw feedevent.Event
@@ -101,8 +107,15 @@ func (s *Service) Handle(ctx context.Context, env events.Envelope) error {
 		return nil
 	}
 
+	// The bus hands every handler a 30s deadline. A long enforcement report
+	// through the model can legitimately take longer, and a timeout here is
+	// redelivered up to five times and then dead-lettered: wasted model calls
+	// and a lost notice. Extraction gets its own budget; the broker's
+	// consumer_timeout (30 min) is the real ceiling.
+	ectx, cancel := context.WithTimeout(context.WithoutCancel(ctx), ExtractTimeout)
+	defer cancel()
 	started := time.Now()
-	ext, err := s.Extractor.Extract(ctx, text)
+	ext, err := s.Extractor.Extract(ectx, text)
 	if err != nil {
 		s.bump(func(st *stats) { st.Failed++; st.LastError = err.Error(); st.LastAt = time.Now() })
 		return fmt.Errorf("extract %s/%s: %w", raw.Source, raw.SourceID, err)
