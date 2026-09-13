@@ -181,3 +181,148 @@
 .text-nav-label { font-size: 14px; letter-spacing: -0.42px; }
 .hover\:bg-white\/5:hover { background: rgba(0, 0, 0, 0.04); }
 .rounded-3xl { border-radius: 20px; }
+
+/* ---------------------------------------------------------------- motion
+ *
+ * Every transition here is opacity and small translation only. Nothing
+ * reflows, nothing changes height on enter, so the page never jumps: the
+ * layout is already final when the fade begins.
+ */
+@layer components {
+    @keyframes rise {
+        from { opacity: 0; transform: translate3d(0, 10px, 0); }
+        to   { opacity: 1; transform: none; }
+    }
+    @keyframes fade {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+    }
+
+    .page { animation: rise 420ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+    .fade-in { animation: fade 320ms ease both; }
+
+    /* Stagger children without per-element classes. */
+    .stagger > * { animation: rise 460ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+    .stagger > *:nth-child(1) { animation-delay: 40ms; }
+    .stagger > *:nth-child(2) { animation-delay: 80ms; }
+    .stagger > *:nth-child(3) { animation-delay: 120ms; }
+    .stagger > *:nth-child(4) { animation-delay: 160ms; }
+    .stagger > *:nth-child(5) { animation-delay: 200ms; }
+    .stagger > *:nth-child(6) { animation-delay: 240ms; }
+    .stagger > *:nth-child(n + 7) { animation-delay: 280ms; }
+
+    @media (prefers-reduced-motion: reduce) {
+        .page, .fade-in, .stagger > * { animation: none; }
+        * { scroll-behavior: auto !important; }
+    }
+
+    /* ------------------------------------------------------------ capsule tabs
+     *
+     * One track, one sliding thumb. The thumb is a single element moved with a
+     * transform, so switching tabs never re-lays-out the row, and the label
+     * underneath never shifts by a pixel.
+     */
+    .tabs {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 2px;
+        padding: 4px;
+        border-radius: 100px;
+        background: color-mix(in srgb, var(--color-obsidian) 5%, transparent);
+        border: 1px solid color-mix(in srgb, var(--color-obsidian) 8%, transparent);
+    }
+    .tabs-thumb {
+        position: absolute;
+        top: 4px;
+        bottom: 4px;
+        left: 0;
+        border-radius: 100px;
+        background: var(--color-obsidian);
+        transition: transform 380ms cubic-bezier(0.22, 1, 0.36, 1),
+                    width 380ms cubic-bezier(0.22, 1, 0.36, 1);
+        will-change: transform, width;
+        pointer-events: none;
+    }
+    .tab {
+        position: relative;
+        z-index: 1;
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        white-space: nowrap;
+        border: 0;
+        background: none;
+        cursor: pointer;
+        border-radius: 100px;
+        padding: 9px 16px;
+        font-size: 14px;
+        letter-spacing: -0.42px;
+        color: var(--color-pebble);
+        transition: color 260ms ease;
+    }
+    .tab:hover { color: var(--color-obsidian); }
+    .tab.is-active { color: var(--color-warm-cream); }
+    .tab.is-active:hover { color: var(--color-warm-cream); }
+    .tab-count {
+        font-size: 12px;
+        letter-spacing: -0.36px;
+        opacity: 0.62;
+    }
+
+    /* ------------------------------------------------------------ layout
+     * One container width and one vertical rhythm, so pages stop disagreeing
+     * with each other about margins.
+     */
+    .shell { margin-inline: auto; max-width: 1440px; padding-inline: 24px; }
+    @media (min-width: 1024px) { .shell { padding-inline: 40px; } }
+    .section { padding-block: 72px; }
+    .section-tight { padding-block: 40px; }
+    .eyebrow {
+        font-size: 12px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--color-pebble);
+    }
+    .stat-figure { font-size: 40px; line-height: 1; letter-spacing: -1.6px; }
+    .table-row {
+        display: grid;
+        align-items: center;
+        gap: 16px;
+        padding-block: 14px;
+        border-bottom: 1px solid var(--color-mist);
+    }
+    .table-head {
+        font-size: 12px;
+        letter-spacing: -0.36px;
+        text-transform: uppercase;
+        color: var(--color-pebble);
+        border-bottom: 1px solid var(--color-obsidian);
+        padding-bottom: 10px;
+    }
+    .status {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        border-radius: 100px;
+        border: 1px solid var(--color-mist);
+        padding: 5px 12px;
+        font-size: 12px;
+        letter-spacing: -0.36px;
+        white-space: nowrap;
+    }
+    .status-held { border-color: var(--color-obsidian); }
+    .status-review { border-color: var(--color-ember-orange); color: var(--color-ember-orange); }
+}
+
+@layer components {
+    /* Product frames: a white square with the photograph contained inside it,
+     * so contributor photos of wildly different crops read as one shelf. */
+    .photo img { object-fit: contain; }
+    .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+}
