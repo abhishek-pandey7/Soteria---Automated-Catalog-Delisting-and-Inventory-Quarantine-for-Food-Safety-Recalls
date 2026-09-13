@@ -466,27 +466,61 @@ const mMetafieldsSet = `mutation SetMetafields($metafields: [MetafieldsSetInput!
   }
 }`
 
+const mMetafieldsDelete = `mutation DeleteMetafields($metafields: [MetafieldIdentifierInput!]!) {
+  metafieldsDelete(metafields: $metafields) {
+    deletedMetafields { ownerId namespace key }
+    userErrors { field message }
+  }
+}`
+
+// SetMetafields writes the fields; a field with an empty value is deleted,
+// because Shopify refuses to store one ("Value can't be blank") and a cleared
+// badge should read as absent, not as an empty string.
 func (c *Client) SetMetafields(ctx context.Context, fields []Metafield) error {
-	if len(fields) == 0 {
-		return nil
-	}
-	in := make([]map[string]any, 0, len(fields))
+	var set, del []map[string]any
 	for _, f := range fields {
+		if f.Value == "" {
+			del = append(del, map[string]any{"ownerId": f.OwnerID, "namespace": f.Namespace, "key": f.Key})
+			continue
+		}
 		t := f.Type
 		if t == "" {
 			t = "single_line_text_field"
 		}
-		in = append(in, map[string]any{"ownerId": f.OwnerID, "namespace": f.Namespace, "key": f.Key, "type": t, "value": f.Value})
+		set = append(set, map[string]any{"ownerId": f.OwnerID, "namespace": f.Namespace, "key": f.Key, "type": t, "value": f.Value})
 	}
-	var out struct {
-		R struct {
-			UserErrors []UserError `json:"userErrors"`
-		} `json:"metafieldsSet"`
+	if len(set) > 0 {
+		var out struct {
+			R struct {
+				UserErrors []UserError `json:"userErrors"`
+			} `json:"metafieldsSet"`
+		}
+		if err := c.Do(ctx, mMetafieldsSet, map[string]any{"metafields": set}, &out); err != nil {
+			return err
+		}
+		if err := userErrors("metafieldsSet", out.R.UserErrors); err != nil {
+			return err
+		}
 	}
-	if err := c.Do(ctx, mMetafieldsSet, map[string]any{"metafields": in}, &out); err != nil {
-		return err
+	if len(del) > 0 {
+		var out struct {
+			R struct {
+				UserErrors []UserError `json:"userErrors"`
+			} `json:"metafieldsDelete"`
+		}
+		if err := c.Do(ctx, mMetafieldsDelete, map[string]any{"metafields": del}, &out); err != nil {
+			return err
+		}
+		// Deleting a metafield that does not exist is not an error to us.
+		var ue []UserError
+		for _, e := range out.R.UserErrors {
+			if !strings.Contains(strings.ToLower(e.Message), "not found") && !strings.Contains(strings.ToLower(e.Message), "does not exist") {
+				ue = append(ue, e)
+			}
+		}
+		return userErrors("metafieldsDelete", ue)
 	}
-	return userErrors("metafieldsSet", out.R.UserErrors)
+	return nil
 }
 
 // ---- order editing ----------------------------------------------------------
@@ -620,3 +654,89 @@ func numericID(gid string) string {
 }
 
 var _ API = (*Client)(nil)
+
+// ---- orders (write) -----------------------------------------------------------
+
+const mOrderCreate = `mutation CreateOrder($order: OrderCreateOrderInput!, $options: OrderCreateOptionsInput) {
+  orderCreate(order: $order, options: $options) {
+    order { id name email createdAt displayFulfillmentStatus displayFinancialStatus
+      lineItems(first: 20) { nodes { id sku title quantity variant { id } } } }
+    userErrors { field message }
+  }
+}`
+
+// OrderLine is one line of an order to create.
+type OrderLine struct {
+	VariantID string
+	Quantity  int
+}
+
+// CreateOrder places a paid, unfulfilled order for the given lines — the shape
+// the rescue flow looks for. It is deliberately not on the API interface: the
+// domain services never create orders; demo and seeding tools do. With test
+// set, Shopify marks the order as a test order (no real payment, hidden from
+// most reports); use it for anything that is not a real sale.
+func (c *Client) CreateOrder(ctx context.Context, email string, lines []OrderLine, test bool) (Order, error) {
+	if len(lines) == 0 {
+		return Order{}, errors.New("shopify: order needs at least one line")
+	}
+	items := make([]map[string]any, 0, len(lines))
+	for _, l := range lines {
+		if l.Quantity <= 0 {
+			return Order{}, errors.New("shopify: order line quantity must be positive")
+		}
+		items = append(items, map[string]any{"variantId": l.VariantID, "quantity": l.Quantity})
+	}
+	var out struct {
+		R struct {
+			Order *struct {
+				ID                       string    `json:"id"`
+				Name                     string    `json:"name"`
+				Email                    string    `json:"email"`
+				CreatedAt                time.Time `json:"createdAt"`
+				DisplayFulfillmentStatus string    `json:"displayFulfillmentStatus"`
+				DisplayFinancialStatus   string    `json:"displayFinancialStatus"`
+				LineItems                struct {
+					Nodes []struct {
+						ID       string `json:"id"`
+						SKU      string `json:"sku"`
+						Title    string `json:"title"`
+						Quantity int    `json:"quantity"`
+						Variant  *struct {
+							ID string `json:"id"`
+						} `json:"variant"`
+					} `json:"nodes"`
+				} `json:"lineItems"`
+			} `json:"order"`
+			UserErrors []UserError `json:"userErrors"`
+		} `json:"orderCreate"`
+	}
+	order := map[string]any{
+		"email":           email,
+		"lineItems":       items,
+		"financialStatus": "PAID",
+		"test":            test,
+		"tags":            []string{"soteria-demo"},
+		"note":            "Created by Sotería democtl for the order-rescue flow.",
+	}
+	options := map[string]any{"inventoryBehaviour": "DECREMENT_OBEYING_POLICY", "sendReceipt": false}
+	if err := c.Do(ctx, mOrderCreate, map[string]any{"order": order, "options": options}, &out); err != nil {
+		return Order{}, err
+	}
+	if err := userErrors("orderCreate", out.R.UserErrors); err != nil {
+		return Order{}, err
+	}
+	if out.R.Order == nil {
+		return Order{}, errors.New("shopify: orderCreate returned no order")
+	}
+	o := Order{ID: out.R.Order.ID, Name: out.R.Order.Name, Email: out.R.Order.Email, CreatedAt: out.R.Order.CreatedAt,
+		FulfillmentStatus: out.R.Order.DisplayFulfillmentStatus, FinancialStatus: out.R.Order.DisplayFinancialStatus}
+	for _, li := range out.R.Order.LineItems.Nodes {
+		l := LineItem{ID: li.ID, SKU: li.SKU, Title: li.Title, Quantity: li.Quantity}
+		if li.Variant != nil {
+			l.VariantID = li.Variant.ID
+		}
+		o.LineItems = append(o.LineItems, l)
+	}
+	return o, nil
+}

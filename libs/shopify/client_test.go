@@ -368,6 +368,24 @@ func TestMutationsSendInputsAndSurfaceUserErrors(t *testing.T) {
 	if err := c.SetMetafields(ctx, []Metafield{{OwnerID: "gid://shopify/Product/1", Namespace: "soteria", Key: "badge", Value: "Verified Safe Lot"}}); err != nil {
 		t.Fatal(err)
 	}
+
+	// An empty value clears the badge by deleting the metafield: Shopify
+	// refuses "Value can't be blank" on metafieldsSet.
+	deleted := false
+	m.on("DeleteMetafields", func(vars map[string]any, n int) (int, string) {
+		deleted = true
+		mf := vars["metafields"].([]any)[0].(map[string]any)
+		if mf["ownerId"] != "gid://shopify/Product/1" || mf["key"] != "badge" || mf["value"] != nil {
+			t.Errorf("delete identifier: %v", mf)
+		}
+		return ok(`{"metafieldsDelete":{"deletedMetafields":[{"ownerId":"gid://shopify/Product/1","namespace":"soteria","key":"badge"}],"userErrors":[]}}`)
+	})
+	if err := c.SetMetafields(ctx, []Metafield{{OwnerID: "gid://shopify/Product/1", Namespace: "soteria", Key: "badge", Value: ""}}); err != nil {
+		t.Fatal(err)
+	}
+	if !deleted {
+		t.Error("empty value did not delete the metafield")
+	}
 }
 
 func TestReplaceLineItemRunsTheEditSequence(t *testing.T) {
