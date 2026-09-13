@@ -8,8 +8,9 @@ docker compose up -d            # broker + every service
 docker compose logs -f rabbitmq # watch the topology import
 ```
 
-`infra/.env` (git-ignored) supplies `RABBITMQ_USER` / `RABBITMQ_PASSWORD`,
-and optionally `SHOPIFY_SHOP` / `SHOPIFY_ACCESS_TOKEN` / `QUARANTINE_LOCATION`
+`infra/.env` (git-ignored; start from `infra/.env.example`) supplies
+`RABBITMQ_USER` / `RABBITMQ_PASSWORD` — compose refuses to start without the
+password, there is no default — and optionally `SHOPIFY_SHOP` / `SHOPIFY_ACCESS_TOKEN` / `QUARANTINE_LOCATION`
 (without them the domain services run on fixtures), `GROQ_API_KEY` (without it
 the extractor and the evasion judge use deterministic fakes), and
 `SLACK_WEBHOOK_URL` / `RESEND_API_KEY` (without them notifications are logged).

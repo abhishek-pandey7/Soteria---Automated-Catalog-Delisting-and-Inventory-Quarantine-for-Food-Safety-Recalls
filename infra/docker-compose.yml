@@ -20,16 +20,16 @@ services:
       - "5672:5672"    # amqp
       - "15672:15672"  # management UI; credentials from infra/.env
     environment:
-      # Credentials come from infra/.env so none live in the repository. The
-      # fallbacks are development-only and documented as such; a deployment sets
-      # real values, and docs/security-review.md lists this as an open item.
+      # Credentials come from infra/.env; none live in the repository and there
+      # is no fallback password: a stack that boots with a known password is
+      # worse than one that refuses to boot. `cp infra/.env.example infra/.env`.
       #
       # A broker that imports definitions does not seed its default user, so
       # the account is declared in definitions.json with placeholders and the
       # real values are substituted at start (the file is a read-only mount;
       # the rendered copy lives in /tmp). Avoid "|" in the password.
       RABBITMQ_USER: ${RABBITMQ_USER:-soteria}
-      RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD:-change-me-locally}
+      RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD:?set RABBITMQ_PASSWORD in infra/.env}
     command:
       - sh
       - -ec
@@ -58,7 +58,7 @@ services:
       context: ..
       dockerfile: services/resolution-service/Dockerfile
     environment:
-      RABBITMQ_URL: amqp://${RABBITMQ_USER:-soteria}:${RABBITMQ_PASSWORD:-change-me-locally}@rabbitmq:5672/
+      RABBITMQ_URL: amqp://${RABBITMQ_USER:-soteria}:${RABBITMQ_PASSWORD:?set RABBITMQ_PASSWORD in infra/.env}@rabbitmq:5672/
       CORS_ALLOWED_ORIGINS: http://localhost:5173
       SHOPIFY_SHOP: ${SHOPIFY_SHOP:-}
       SHOPIFY_ACCESS_TOKEN: ${SHOPIFY_ACCESS_TOKEN:-}
@@ -74,7 +74,7 @@ services:
       context: ..
       dockerfile: services/containment-service/Dockerfile
     environment:
-      RABBITMQ_URL: amqp://${RABBITMQ_USER:-soteria}:${RABBITMQ_PASSWORD:-change-me-locally}@rabbitmq:5672/
+      RABBITMQ_URL: amqp://${RABBITMQ_USER:-soteria}:${RABBITMQ_PASSWORD:?set RABBITMQ_PASSWORD in infra/.env}@rabbitmq:5672/
       CORS_ALLOWED_ORIGINS: http://localhost:5173
       SHOPIFY_SHOP: ${SHOPIFY_SHOP:-}
       SHOPIFY_ACCESS_TOKEN: ${SHOPIFY_ACCESS_TOKEN:-}
@@ -93,7 +93,7 @@ services:
       context: ..
       dockerfile: services/order-rescue-service/Dockerfile
     environment:
-      RABBITMQ_URL: amqp://${RABBITMQ_USER:-soteria}:${RABBITMQ_PASSWORD:-change-me-locally}@rabbitmq:5672/
+      RABBITMQ_URL: amqp://${RABBITMQ_USER:-soteria}:${RABBITMQ_PASSWORD:?set RABBITMQ_PASSWORD in infra/.env}@rabbitmq:5672/
       CORS_ALLOWED_ORIGINS: http://localhost:5173
       SHOPIFY_SHOP: ${SHOPIFY_SHOP:-}
       SHOPIFY_ACCESS_TOKEN: ${SHOPIFY_ACCESS_TOKEN:-}
@@ -111,7 +111,7 @@ services:
       context: ..
       dockerfile: services/audit-proof-service/Dockerfile
     environment:
-      RABBITMQ_URL: amqp://${RABBITMQ_USER:-soteria}:${RABBITMQ_PASSWORD:-change-me-locally}@rabbitmq:5672/
+      RABBITMQ_URL: amqp://${RABBITMQ_USER:-soteria}:${RABBITMQ_PASSWORD:?set RABBITMQ_PASSWORD in infra/.env}@rabbitmq:5672/
       CORS_ALLOWED_ORIGINS: http://localhost:5173
       TSA_URL: ${TSA_URL:-http://timestamp.digicert.com}
       TSA_DISABLED: ${TSA_DISABLED:-}
@@ -136,7 +136,7 @@ services:
       context: ..
       dockerfile: services/ingestion-fda/Dockerfile
     environment:
-      RABBITMQ_URL: amqp://${RABBITMQ_USER:-soteria}:${RABBITMQ_PASSWORD:-change-me-locally}@rabbitmq:5672/
+      RABBITMQ_URL: amqp://${RABBITMQ_USER:-soteria}:${RABBITMQ_PASSWORD:?set RABBITMQ_PASSWORD in infra/.env}@rabbitmq:5672/
       OPENFDA_API_KEY: ${OPENFDA_API_KEY:-}
       BACKFILL_DAYS: ${BACKFILL_DAYS:-14}
       POLL_INTERVAL: ${POLL_INTERVAL:-5m}
@@ -155,7 +155,7 @@ services:
       context: ..
       dockerfile: services/recall-extractor/Dockerfile
     environment:
-      RABBITMQ_URL: amqp://${RABBITMQ_USER:-soteria}:${RABBITMQ_PASSWORD:-change-me-locally}@rabbitmq:5672/
+      RABBITMQ_URL: amqp://${RABBITMQ_USER:-soteria}:${RABBITMQ_PASSWORD:?set RABBITMQ_PASSWORD in infra/.env}@rabbitmq:5672/
       # Without a key the extractor runs its deterministic fake and says so.
       GROQ_API_KEY: ${GROQ_API_KEY:-}
       GROQ_MODEL: ${GROQ_MODEL:-openai/gpt-oss-120b}
@@ -173,7 +173,7 @@ services:
       context: ..
       dockerfile: services/notification-service/Dockerfile
     environment:
-      RABBITMQ_URL: amqp://${RABBITMQ_USER:-soteria}:${RABBITMQ_PASSWORD:-change-me-locally}@rabbitmq:5672/
+      RABBITMQ_URL: amqp://${RABBITMQ_USER:-soteria}:${RABBITMQ_PASSWORD:?set RABBITMQ_PASSWORD in infra/.env}@rabbitmq:5672/
       CORS_ALLOWED_ORIGINS: http://localhost:5173,http://localhost:5174
       # Unset = log channel only. Nothing leaves the box without these.
       SLACK_WEBHOOK_URL: ${SLACK_WEBHOOK_URL:-}
@@ -195,7 +195,7 @@ services:
       context: ..
       dockerfile: services/ingestion-silent-diff/Dockerfile
     environment:
-      RABBITMQ_URL: amqp://${RABBITMQ_USER:-soteria}:${RABBITMQ_PASSWORD:-change-me-locally}@rabbitmq:5672/
+      RABBITMQ_URL: amqp://${RABBITMQ_USER:-soteria}:${RABBITMQ_PASSWORD:?set RABBITMQ_PASSWORD in infra/.env}@rabbitmq:5672/
       POLL_INTERVAL_SECONDS: ${SILENT_DIFF_INTERVAL:-3600}
       # 8085 is audit on the host; the container keeps its default and is
       # published on 8088.
@@ -213,7 +213,7 @@ services:
       context: ..
       dockerfile: services/anti-evasion-service/Dockerfile
     environment:
-      RABBITMQ_URL: amqp://${RABBITMQ_USER:-soteria}:${RABBITMQ_PASSWORD:-change-me-locally}@rabbitmq:5672/
+      RABBITMQ_URL: amqp://${RABBITMQ_USER:-soteria}:${RABBITMQ_PASSWORD:?set RABBITMQ_PASSWORD in infra/.env}@rabbitmq:5672/
       GROQ_API_KEY: ${GROQ_API_KEY:-}
       GROQ_MODEL: ${GROQ_MODEL:-openai/gpt-oss-120b}
       POLL_INTERVAL_SECONDS: ${EVASION_INTERVAL:-3600}
