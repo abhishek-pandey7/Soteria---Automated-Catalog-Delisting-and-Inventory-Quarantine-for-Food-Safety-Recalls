@@ -4,7 +4,7 @@ Recall detection, lot-level containment and proof of action for online grocery.
 
 ## The problem
 
-Every week, somewhere in the food supply chain, a manufacturer discovers that a batch is unsafe. Salmonella in nut butter. Glass in frozen fruit bars. Fish in a noodle kit whose label does not mention fish. The FDA and USDA between them announce hundreds of food recalls a year; in one two week window in September 2026 the openFDA enforcement feed alone carried 21 new ones. Each of them lands on retailers that are still selling the product, and on customers who already have it in their kitchen or on the way.
+Every week, somewhere in the food supply chain, a manufacturer discovers that a batch is unsafe. The FDA and USDA between them announce hundreds of food recalls a year; in one two week window in September 2026 the openFDA enforcement feed alone carried 21 new ones. Each of them lands on retailers that are still selling the product, and on customers who already have it in their kitchen or on the way.
 
 If you have ever ordered groceries online, this is your problem too. The item you bought last Tuesday can be recalled on Thursday, and in most stores nobody tells you. The order ships anyway. The product stays on the site. You find out, if you find out, from the news.
 
