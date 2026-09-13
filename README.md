@@ -2,6 +2,8 @@
 
 Recall detection, lot-level containment and proof of action for online grocery.
 
+Demo Link: https://app.trupeer.ai/view/OpCNok2s5/soteria
+
 ## The problem
 
 Every week, somewhere in the food supply chain, a manufacturer discovers that a batch is unsafe. The FDA and USDA between them announce hundreds of food recalls a year; in one two week window in September 2026 the openFDA enforcement feed alone carried 21 new ones. Each of them lands on retailers that are still selling the product, and on customers who already have it in their kitchen or on the way.
