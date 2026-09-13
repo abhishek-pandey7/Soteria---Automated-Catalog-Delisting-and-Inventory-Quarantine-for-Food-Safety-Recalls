@@ -10,7 +10,7 @@
 //
 // Env (a .env in the working directory or any parent is loaded): SHOPIFY_SHOP,
 // SHOPIFY_ACCESS_TOKEN, SHOPIFY_API_VERSION, QUARANTINE_LOCATION (Quarantine),
-// RABBITMQ_URL (amqp://soteria:soteria-local@localhost:5672/), CASES
+// RABBITMQ_URL (the compose broker with its infra/.env credentials), CASES
 // (services/recall-extractor/eval/cases.json), COMPOSE_FILE (infra/docker-compose.yml).
 package main
 
@@ -204,7 +204,10 @@ func inject(ctx context.Context, args []string) error {
 	raw["occurred_at"] = time.Now().UTC().Format(time.RFC3339Nano)
 	body, _ := json.Marshal(raw)
 
-	url := envOr("RABBITMQ_URL", "amqp://soteria:soteria-local@localhost:5672/")
+	url := os.Getenv("RABBITMQ_URL")
+	if url == "" {
+		return errors.New("RABBITMQ_URL must be set (amqp://<RABBITMQ_USER>:<RABBITMQ_PASSWORD>@localhost:5672/ from infra/.env)")
+	}
 	conn, err := amqp.Dial(url)
 	if err != nil {
 		return fmt.Errorf("dial broker: %w", err)
