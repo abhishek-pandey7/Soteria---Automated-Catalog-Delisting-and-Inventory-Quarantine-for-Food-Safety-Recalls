@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams, useSearchParams } from 'react-router-dom'
 import { CATALOG, findProduct } from '../catalog'
+import { ProductPhoto } from '../components/ProductPhoto'
 import { AllergenPanel } from '../features/allergens/AllergenPanel'
 import { useProductAllergens } from '../features/allergens/useProductAllergens'
 import { SafeLotBadge } from '../features/badge/SafeLotBadge'
 import { useLotStatus } from '../features/badge/useLotStatus'
 import { RecallBanner } from '../features/banner/RecallBanner'
+import { recallKey, useActiveRecalls } from '../features/recalls/useActiveRecalls'
 import { useBag } from '../store/useBag'
 
 /**
@@ -24,6 +26,7 @@ export function ProductPage() {
     const [input, setInput] = useState(lot)
     const { status, loading, error } = useLotStatus(product?.gtin, lot || undefined)
     const allergens = useProductAllergens(product?.gtin)
+    const recalls = useActiveRecalls()
 
     useEffect(() => {
         document.title = product ? `${product.name} — Sotería` : 'Sotería'
@@ -39,11 +42,21 @@ export function ProductPage() {
     }
 
     const affected = status?.verdict === 'AFFECTED'
+    const recalled = recalls.has(recallKey(product.gtin))
     const related = CATALOG.filter((p) => p.category === product.category && p.gtin !== product.gtin).slice(0, 3)
 
     return (
         <>
             {lot && <RecallBanner status={status} />}
+            {!lot && recalled && (
+                <div role="status" className="mx-auto max-w-[1440px] px-6 pb-6">
+                    <div className="hairline-dark" />
+                    <p className="pt-3 text-body-sm">
+                        There is an active recall on this product. Check the lot code on your pack
+                        below before you eat it.
+                    </p>
+                </div>
+            )}
             <main className="mx-auto max-w-[1440px] px-6">
                 <p className="text-body-sm text-pebble">
                     <Link to="/" className="link link-muted">Shop</Link>
@@ -52,8 +65,8 @@ export function ProductPage() {
                 </p>
 
                 <section className="grid gap-10 pt-8 md:grid-cols-[1.15fr_1fr] md:gap-16">
-                    <div className="photo aspect-[4/5] p-10 md:p-16">
-                        <img src={product.image} alt={product.name} className="h-full w-full" />
+                    <div className="photo relative aspect-[4/5] p-10 md:p-16">
+                        <ProductPhoto product={product} />
                     </div>
 
                     <div className="md:pt-10">
@@ -148,8 +161,8 @@ export function ProductPage() {
                         <div className="mt-8 grid grid-cols-2 gap-6 md:grid-cols-3">
                             {related.map((p, i) => (
                                 <Link key={p.gtin} to={`/product/${p.gtin}`} className={`group block ${i === 1 ? 'md:mt-10' : ''}`}>
-                                    <div className="photo aspect-square p-8">
-                                        <img src={p.image} alt={p.name} loading="lazy" className="h-full w-full transition-transform duration-500 group-hover:scale-[1.03]" />
+                                    <div className="photo relative aspect-square p-8">
+                                        <ProductPhoto product={p} className="transition-transform duration-500 group-hover:scale-[1.03]" />
                                     </div>
                                     <p className="mt-3 text-body"><span className="text-pebble">{p.brand} </span>{p.name}</p>
                                     <p className="text-body-sm text-pebble">{p.price}</p>
