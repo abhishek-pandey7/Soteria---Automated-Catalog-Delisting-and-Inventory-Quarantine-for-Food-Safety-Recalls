@@ -1,4 +1,5 @@
 import { Link, useSearchParams } from 'react-router-dom'
+import { ProductPhoto } from '../components/ProductPhoto'
 import { RescuePanel } from '../features/rescue/RescuePanel'
 import { useRescue } from '../features/rescue/useRescue'
 import { useBag } from '../store/useBag'
@@ -62,7 +63,7 @@ export function Bag() {
                         {bag.lines.map((l) => (
                             <div key={l.product.gtin} className="flex items-center gap-6 py-4">
                                 <div className="photo h-20 w-20 shrink-0 p-2">
-                                    <img src={l.product.imageSmall} alt="" className="h-full w-full" />
+                                    <ProductPhoto product={l.product} small />
                                 </div>
                                 <div className="flex-1">
                                     <p className="text-body"><span className="text-pebble">{l.product.brand} </span>{l.product.name}</p>

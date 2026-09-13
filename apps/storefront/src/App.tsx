@@ -6,7 +6,7 @@ import { ProductPage } from './pages/ProductPage'
 import { Admin } from './pages/Admin'
 import { BagProvider } from './store/bag'
 
-const FRESH = new Set(['yogurts', 'cheeses', 'ice-creams', 'breads', 'fruit-juices', 'plant-based-milks', 'hummus'])
+const FRESH = new Set(['ice-creams', 'seafood', 'poultry', 'soups'])
 
 export default function App() {
     return (

@@ -1,0 +1,174 @@
+[
+  {
+    "barcode": "085315054108",
+    "vendor": "H & U Inc. dba Sun Noodle",
+    "title": "Sura Tanmen Hot and Sour Flavor Premium Japanese Noodles & Soup Base",
+    "price": "4.99",
+    "lots": [
+      {
+        "code": "1226183",
+        "units": 40
+      },
+      {
+        "code": "CLEAN-A",
+        "units": 35
+      },
+      {
+        "code": "CLEAN-B",
+        "units": 25
+      }
+    ]
+  },
+  {
+    "barcode": "850073087008",
+    "vendor": "Bear Stewart Co",
+    "title": "Bakr Brown Butter Chocolate Chunk Ready to Bake Cookie Dough, 8-oz pouch 12 cookies per pâ€¦",
+    "price": "4.99",
+    "lots": [
+      {
+        "code": "2606022",
+        "units": 40
+      },
+      {
+        "code": "CLEAN-A",
+        "units": 35
+      },
+      {
+        "code": "CLEAN-B",
+        "units": 25
+      }
+    ]
+  },
+  {
+    "barcode": "860864000307",
+    "vendor": "Gifford's Dairy, Inc.",
+    "title": "Gifford's HomeMaine ice cream brand POWER PLAY FUDGE; ONE QUART (946 mL); UPC: 8 60864 00â€¦",
+    "price": "4.99",
+    "lots": [
+      {
+        "code": "26184",
+        "units": 40
+      },
+      {
+        "code": "CLEAN-A",
+        "units": 35
+      },
+      {
+        "code": "CLEAN-B",
+        "units": 25
+      }
+    ]
+  },
+  {
+    "barcode": "858792003323",
+    "vendor": "Mellish Island Corp",
+    "title": "Mellish Island Super Skin; Dietary Supplement; 60 Capsules, 2 per day; Distributed by Melâ€¦",
+    "price": "4.99",
+    "lots": [
+      {
+        "code": "CA1G24",
+        "units": 40
+      },
+      {
+        "code": "CLEAN-A",
+        "units": 35
+      },
+      {
+        "code": "CLEAN-B",
+        "units": 25
+      }
+    ]
+  },
+  {
+    "barcode": "00175029",
+    "vendor": "Shandong Ling Xian Food Co.,LTD",
+    "title": "Island Pacific IMITATION CRAB STICKS NET WT: 1.0 LB (454g) UPC: 0000000175029 PRECOOKED Sâ€¦",
+    "price": "4.99",
+    "lots": [
+      {
+        "code": "2412292402HS",
+        "units": 40
+      },
+      {
+        "code": "CLEAN-A",
+        "units": 35
+      },
+      {
+        "code": "CLEAN-B",
+        "units": 25
+      }
+    ]
+  },
+  {
+    "barcode": "042272005833",
+    "vendor": "AMY'S KITCHEN INC.",
+    "title": "Amy's ORGANIC SOUPS LENTIL LIGHT IN SODIUM NET WT",
+    "price": "4.99",
+    "lots": [
+      {
+        "code": "60D0924",
+        "units": 40
+      },
+      {
+        "code": "CLEAN-A",
+        "units": 35
+      },
+      {
+        "code": "CLEAN-B",
+        "units": 25
+      }
+    ]
+  },
+  {
+    "barcode": "100000010150",
+    "vendor": "Fresh & Ready Foods LLC",
+    "title": "Fresh to You Burger Chicken Fillet, SKU 10150, Net wt",
+    "price": "4.99",
+    "lots": [
+      {
+        "code": "26171",
+        "units": 40
+      },
+      {
+        "code": "CLEAN-A",
+        "units": 35
+      },
+      {
+        "code": "CLEAN-B",
+        "units": 25
+      }
+    ]
+  },
+  {
+    "barcode": "4056489125846",
+    "vendor": "Lidl US TRADING",
+    "title": "ERIDANOUS GREEK STYLE Shortbread Cookies with apricot filling and cocoa topping with cocoâ€¦",
+    "price": "4.99",
+    "lots": [
+      {
+        "code": "260315",
+        "units": 40
+      },
+      {
+        "code": "CLEAN-A",
+        "units": 35
+      },
+      {
+        "code": "CLEAN-B",
+        "units": 25
+      }
+    ]
+  },
+  {
+    "barcode": "012345678905",
+    "vendor": "Soteria Pantry",
+    "title": "Soteria Pantry Substitute Pack",
+    "price": "4.99",
+    "lots": [
+      {
+        "code": "SUB-2026-01",
+        "units": 120
+      }
+    ]
+  }
+]

@@ -38,7 +38,7 @@ export function Shell() {
 
     return (
         <div className="flex min-h-screen flex-col bg-warm-cream text-obsidian">
-            <header className="shell grid grid-cols-1 items-center gap-4 py-5 md:grid-cols-[1fr_auto_1fr]">
+            <header className="shell grid w-full grid-cols-1 items-center gap-4 py-5 md:grid-cols-[1fr_auto_1fr]">
                 <div className="order-2 md:order-1">
                     <Tabs
                         items={SECTIONS}
@@ -71,7 +71,7 @@ export function Shell() {
                 <Outlet />
             </div>
 
-            <footer className="shell pb-14 pt-24">
+            <footer className="shell w-full pb-14 pt-24">
                 <div className="hairline mb-6" />
                 <div className="flex flex-wrap items-baseline justify-between gap-x-10 gap-y-3">
                     <span className="wordmark text-obsidian">Sotería</span>

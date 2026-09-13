@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom'
 import { CATALOG, type Product } from '../catalog'
+import { ProductPhoto } from '../components/ProductPhoto'
+import { recallKey, useActiveRecalls } from '../features/recalls/useActiveRecalls'
 
 /**
  * Home doubles as the landing page: a display-type opener, the claim stated
@@ -9,8 +11,8 @@ import { CATALOG, type Product } from '../catalog'
  * Open Food Facts, shot by contributors on whatever was to hand, so the images
  * differ wildly in aspect ratio, crop and background. An asymmetric mosaic
  * amplifies that into visual noise; a single square frame per product, with the
- * image contained and centred inside it, makes fifteen inconsistent photographs
- * read as one shelf.
+ * image contained and centred inside it, makes inconsistent photographs read as
+ * one shelf.
  */
 export function Home({ filter, title }: { filter?: (p: Product) => boolean; title?: string }) {
     const products = filter ? CATALOG.filter(filter) : CATALOG
@@ -109,41 +111,28 @@ export function Home({ filter, title }: { filter?: (p: Product) => boolean; titl
 }
 
 function ProductGrid({ products, className = '' }: { products: Product[]; className?: string }) {
+    const recalls = useActiveRecalls()
     return (
         <div
             className={`stagger grid grid-cols-2 gap-x-5 gap-y-10 md:grid-cols-3 md:gap-x-6 lg:grid-cols-4 ${className}`}
         >
             {products.map((p) => (
-                <Tile key={p.gtin} product={p} />
+                <Tile key={p.gtin} product={p} recalled={recalls.has(recallKey(p.gtin))} />
             ))}
         </div>
     )
 }
 
-function Tile({ product }: { product: Product }) {
+function Tile({ product, recalled }: { product: Product; recalled: boolean }) {
     return (
         <Link to={`/product/${product.gtin}`} className="group flex flex-col">
             {/* One square frame for every product, whatever the photograph is. */}
             <div className="photo relative aspect-square">
-                {product.image ? (
-                    <img
-                        src={product.image}
-                        alt={product.name}
-                        loading="lazy"
-                        className="absolute inset-0 h-full w-full p-7 transition-transform duration-500 ease-out group-hover:scale-[1.04] md:p-9"
-                        style={{ objectFit: 'contain' }}
-                    />
-                ) : (
-                    // No contributor photograph exists for this barcode. A named
-                    // frame is better than a broken image and better than
-                    // borrowing another product's picture.
-                    <div className="absolute inset-0 flex flex-col justify-between p-6">
-                        <span className="label">{product.brand}</span>
-                        <span className="text-body-lg leading-tight">{product.name}</span>
-                        <span className="mono text-caption text-pebble">{product.gtin}</span>
-                    </div>
-                )}
-                {product.recall && (
+                <ProductPhoto
+                    product={product}
+                    className="absolute inset-0 p-7 transition-transform duration-500 ease-out group-hover:scale-[1.04] md:p-9"
+                />
+                {recalled && (
                     <span className="status status-review absolute left-3 top-3 bg-warm-cream">
                         Recall active
                     </span>
