@@ -59,7 +59,7 @@ services:
       dockerfile: services/resolution-service/Dockerfile
     environment:
       RABBITMQ_URL: amqp://${RABBITMQ_USER:-soteria}:${RABBITMQ_PASSWORD:?set RABBITMQ_PASSWORD in infra/.env}@rabbitmq:5672/
-      CORS_ALLOWED_ORIGINS: http://localhost:5173
+      CORS_ALLOWED_ORIGINS: http://localhost:5173,http://localhost:5174
       SHOPIFY_SHOP: ${SHOPIFY_SHOP:-}
       SHOPIFY_ACCESS_TOKEN: ${SHOPIFY_ACCESS_TOKEN:-}
       PORT: "8081"
@@ -75,7 +75,7 @@ services:
       dockerfile: services/containment-service/Dockerfile
     environment:
       RABBITMQ_URL: amqp://${RABBITMQ_USER:-soteria}:${RABBITMQ_PASSWORD:?set RABBITMQ_PASSWORD in infra/.env}@rabbitmq:5672/
-      CORS_ALLOWED_ORIGINS: http://localhost:5173
+      CORS_ALLOWED_ORIGINS: http://localhost:5173,http://localhost:5174
       SHOPIFY_SHOP: ${SHOPIFY_SHOP:-}
       SHOPIFY_ACCESS_TOKEN: ${SHOPIFY_ACCESS_TOKEN:-}
       QUARANTINE_LOCATION: ${QUARANTINE_LOCATION:-Quarantine}
@@ -94,7 +94,7 @@ services:
       dockerfile: services/order-rescue-service/Dockerfile
     environment:
       RABBITMQ_URL: amqp://${RABBITMQ_USER:-soteria}:${RABBITMQ_PASSWORD:?set RABBITMQ_PASSWORD in infra/.env}@rabbitmq:5672/
-      CORS_ALLOWED_ORIGINS: http://localhost:5173
+      CORS_ALLOWED_ORIGINS: http://localhost:5173,http://localhost:5174
       SHOPIFY_SHOP: ${SHOPIFY_SHOP:-}
       SHOPIFY_ACCESS_TOKEN: ${SHOPIFY_ACCESS_TOKEN:-}
       # Without this the service starts with a development secret and says so.
@@ -112,7 +112,7 @@ services:
       dockerfile: services/audit-proof-service/Dockerfile
     environment:
       RABBITMQ_URL: amqp://${RABBITMQ_USER:-soteria}:${RABBITMQ_PASSWORD:?set RABBITMQ_PASSWORD in infra/.env}@rabbitmq:5672/
-      CORS_ALLOWED_ORIGINS: http://localhost:5173
+      CORS_ALLOWED_ORIGINS: http://localhost:5173,http://localhost:5174
       TSA_URL: ${TSA_URL:-http://timestamp.digicert.com}
       TSA_DISABLED: ${TSA_DISABLED:-}
       PORT: "8085"
