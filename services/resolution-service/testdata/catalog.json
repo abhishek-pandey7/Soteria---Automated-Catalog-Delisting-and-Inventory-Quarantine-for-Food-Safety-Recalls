@@ -5,7 +5,11 @@
     "sku": "SF-GB-12",
     "brand": "Sunfield Farms",
     "product_title": "Sunfield Farms Chewy Granola Bars 12 ct",
-    "lot_codes": ["8H-1132", "8H-1133", "8H-2000"]
+    "lot_codes": [
+      "8H-1132",
+      "8H-1133",
+      "8H-2000"
+    ]
   },
   {
     "gtin": "012345678905",
@@ -13,7 +17,9 @@
     "sku": "HL-GB-12",
     "brand": "Harvest Lane",
     "product_title": "Harvest Lane Oat and Honey Granola Bars 12 ct",
-    "lot_codes": ["K221"]
+    "lot_codes": [
+      "K221"
+    ]
   },
   {
     "gtin": "073123456788",
@@ -21,6 +27,30 @@
     "sku": "NT-GB-12",
     "brand": "Nutty Trail",
     "product_title": "Nutty Trail Peanut Crunch Granola Bars 12 ct",
-    "lot_codes": ["P908"]
+    "lot_codes": [
+      "P908"
+    ]
+  },
+  {
+    "gtin": "194346207961",
+    "upc": "194346207961",
+    "sku": "BG-PNB-190",
+    "brand": "bettergoods",
+    "product_title": "bettergoods Pistachio Nut Butter 6.7 oz",
+    "lot_codes": [
+      "LB028ACP04",
+      "LB030ACP06"
+    ]
+  },
+  {
+    "gtin": "041548413624",
+    "upc": "041548413624",
+    "sku": "OS-FB-WM",
+    "brand": "Outshine",
+    "product_title": "Outshine Fruit Bars Watermelon",
+    "lot_codes": [
+      "LLA618203",
+      "LLA620103"
+    ]
   }
 ]

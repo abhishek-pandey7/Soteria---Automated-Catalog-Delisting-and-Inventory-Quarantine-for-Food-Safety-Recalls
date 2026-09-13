@@ -28,7 +28,7 @@ var api shopify.API = store
 | `Variant` | `productVariant` | single lookup |
 | `OrdersSince` | `orders(query: "created_at:>=…")` | affected-customer scan (line items + fulfillment status) |
 | `SetAvailable` | `inventorySetQuantities` | full-SKU hold: available = 0 |
-| `MoveAvailable` | `inventoryMoveQuantities` | **lot-level quarantine**: move N units Main → Quarantine, leave the rest sellable |
+| `MoveAvailable` | `inventoryAdjustQuantities` (paired −N/+N; activates the destination on demand) | **lot-level quarantine**: move N units Main → Quarantine, leave the rest sellable |
 | `SetProductStatus` | `productUpdate` | `DRAFT` unpublishes |
 | `AddTags` / `RemoveTags` | `tagsAdd` / `tagsRemove` | `RECALL_HAZARD`, `RECALL_LOT:<code>` |
 | `SetMetafields` | `metafieldsSet` | `soteria.badge` = "Verified Safe Lot …" for the storefront |
@@ -75,7 +75,7 @@ How a hold is executed — Shopify has **no native lot tracking**, so:
 | Piece | Where it lives | What the adapter does |
 |---|---|---|
 | Lot ledger | variant metafield `soteria.lots` (JSON: `[{"code":"8H-1132","units":40,"expiry":"2027-03","held":false}]`) | reads it via `Variant.Lots`; marks `held` on hold/release |
-| Quarantine | second Shopify location named **Quarantine** | `inventoryMoveQuantities` selling → Quarantine for the held lots' units (capped at physical stock); reversed on release |
+| Quarantine | second Shopify location named **Quarantine** | `inventoryAdjustQuantities` −N selling / +N Quarantine for the held lots' units (capped at physical stock); reversed on release |
 | Storefront signal | product tags + `soteria.badge` metafield + status | partial hold: `RECALL_LOT:<code>` tags + "Verified Safe Lot" badge, product stays ACTIVE; full hold (all lots, or no ledger, or no `LotCodes`): `RECALL_HAZARD` + DRAFT; release reverses |
 
 Rules: unknown lot codes → error (never silently hold nothing); barcode matching multiple variants → error; unknown barcode → SKU fallback; a failed move leaves the ledger untouched; repeat holds are idempotent.

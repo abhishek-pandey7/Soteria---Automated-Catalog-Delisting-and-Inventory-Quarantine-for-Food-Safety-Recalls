@@ -53,3 +53,9 @@ python -m antievasion run            # poll sources; consume containment events 
 Config: `RABBITMQ_URL`, `GROQ_API_KEY` (without it: rules-only judge), `GROQ_MODEL`, `DB_PATH`, `SOURCES`, `WATCHLIST`, `MIN_SCORE`, `POLL_INTERVAL_SECONDS`, `PORT`.
 
 Every (listing text, recall) verdict is remembered, so an unchanged listing is never re-judged; a flagged listing is reported once. Publish failures leave nothing marked, so the next poll retries.
+
+## Read API
+
+`GET /v1/flags?incident_id=&limit=` returns every `evasion.flagged.v1` this
+service published (payloads, newest first); `GET /v1/watchlist` the recalls it
+is hunting for. CORS is open: read-only, no credentials.

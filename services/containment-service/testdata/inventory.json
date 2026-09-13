@@ -1,6 +1,50 @@
 [
-  { "gtin": "00041196910537", "sku": "SF-GB-12", "lot_code": "8H-1132", "units": 40 },
-  { "gtin": "00041196910537", "sku": "SF-GB-12", "lot_code": "8H-1133", "units": 25 },
-  { "gtin": "00041196910537", "sku": "SF-GB-12", "lot_code": "8H-2000", "units": 60 },
-  { "gtin": "00012345678905", "sku": "HL-GB-12", "lot_code": "K221", "units": 120 }
+  {
+    "gtin": "00041196910537",
+    "sku": "SF-GB-12",
+    "lot_code": "8H-1132",
+    "units": 40
+  },
+  {
+    "gtin": "00041196910537",
+    "sku": "SF-GB-12",
+    "lot_code": "8H-1133",
+    "units": 25
+  },
+  {
+    "gtin": "00041196910537",
+    "sku": "SF-GB-12",
+    "lot_code": "8H-2000",
+    "units": 60
+  },
+  {
+    "gtin": "00012345678905",
+    "sku": "HL-GB-12",
+    "lot_code": "K221",
+    "units": 120
+  },
+  {
+    "gtin": "00194346207961",
+    "sku": "BG-PNB-190",
+    "lot_code": "LB028ACP04",
+    "units": 36
+  },
+  {
+    "gtin": "00194346207961",
+    "sku": "BG-PNB-190",
+    "lot_code": "LB030ACP06",
+    "units": 48
+  },
+  {
+    "gtin": "00041548413624",
+    "sku": "OS-FB-WM",
+    "lot_code": "LLA618203",
+    "units": 30
+  },
+  {
+    "gtin": "00041548413624",
+    "sku": "OS-FB-WM",
+    "lot_code": "LLA620103",
+    "units": 30
+  }
 ]

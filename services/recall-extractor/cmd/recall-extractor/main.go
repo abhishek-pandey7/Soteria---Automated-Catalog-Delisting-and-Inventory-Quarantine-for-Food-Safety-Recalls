@@ -9,6 +9,8 @@
 //	GROQ_API_KEY        Groq free tier (console.groq.com). Without it the
 //	                    service only serves cache hits and --replay of recordings.
 //	GROQ_MODEL          default openai/gpt-oss-120b
+//	GROQ_FALLBACK_MODEL default openai/gpt-oss-20b; used when GROQ_MODEL is
+//	                    rate-limited for more than 30s (daily quota). "" disables.
 //	RABBITMQ_URL        amqp URL; empty runs on the in-process bus (use --replay/--text)
 //	CACHE_PATH          SQLite response cache (default data/extract-cache.db)
 //	PORT                HTTP port (default 8086): /healthz /metrics POST /v1/extract
@@ -65,7 +67,12 @@ func run() error {
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer stop()
 
-	var inner extract.Extractor = extract.NewGroq(os.Getenv("GROQ_API_KEY"), os.Getenv("GROQ_MODEL"))
+	groq := extract.NewGroq(os.Getenv("GROQ_API_KEY"), os.Getenv("GROQ_MODEL"))
+	groq.Log = log
+	if v, ok := os.LookupEnv("GROQ_FALLBACK_MODEL"); ok {
+		groq.Fallback = v // "" disables the fallback
+	}
+	var inner extract.Extractor = groq
 	cache, err := extract.OpenCache(env("CACHE_PATH", filepath.Join("data", "extract-cache.db")), inner)
 	if err != nil {
 		return err

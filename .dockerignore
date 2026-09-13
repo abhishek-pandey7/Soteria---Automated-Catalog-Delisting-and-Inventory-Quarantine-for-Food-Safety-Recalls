@@ -1,0 +1,26 @@
+# Every Dockerfile builds with context = repo root (it needs libs/ and
+# services/<name>/). Keep the context to source: no dependencies, no local
+# state, no secrets.
+.git
+.github
+**/node_modules
+**/dist
+**/storybook-static
+**/.vite
+apps
+docs
+automation
+tests
+tools
+**/data
+**/*.db
+**/*.db-*
+.env
+.env.*
+**/.env
+**/.env.*
+**/__pycache__
+**/.pytest_cache
+**/.ruff_cache
+**/bin
+**/*.exe

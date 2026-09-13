@@ -303,16 +303,32 @@ func TestMutationsSendInputsAndSurfaceUserErrors(t *testing.T) {
 
 	m.on("MoveAvailable", func(vars map[string]any, n int) (int, string) {
 		in := vars["input"].(map[string]any)
-		ch := in["changes"].([]any)[0].(map[string]any)
-		if ch["quantity"].(float64) != 12 || ch["from"].(map[string]any)["locationId"] != "L1" || ch["to"].(map[string]any)["locationId"] != "L2" || !strings.HasPrefix(in["referenceDocumentUri"].(string), "soteria://containment/move/") {
+		ch := in["changes"].([]any)
+		from, to := ch[0].(map[string]any), ch[1].(map[string]any)
+		if in["name"] != "available" || from["delta"].(float64) != -12 || from["locationId"] != "L1" || to["delta"].(float64) != 12 || to["locationId"] != "L2" || !strings.HasPrefix(in["referenceDocumentUri"].(string), "soteria://containment/move/") {
 			t.Errorf("input: %v", in)
 		}
-		return ok(`{"inventoryMoveQuantities":{"inventoryAdjustmentGroup":null,"userErrors":[{"field":["input","changes","0","quantity"],"message":"Only 10 available","code":"INVALID_QUANTITY_TOO_LOW"}]}}`)
+		if n == 1 {
+			// Quarantine has never stocked this item: the client must activate it and retry.
+			return ok(`{"inventoryAdjustQuantities":{"inventoryAdjustmentGroup":null,"userErrors":[{"field":["input","changes","1"],"message":"not stocked","code":"ITEM_NOT_STOCKED_AT_LOCATION"}]}}`)
+		}
+		return ok(`{"inventoryAdjustQuantities":{"inventoryAdjustmentGroup":null,"userErrors":[{"field":["input","changes","0","delta"],"message":"Only 10 available","code":"INVALID_QUANTITY_TOO_LOW"}]}}`)
+	})
+	activated := 0
+	m.on("Activate", func(vars map[string]any, n int) (int, string) {
+		activated++
+		if vars["inventoryItemId"] != "I1" || vars["locationId"] != "L2" {
+			t.Errorf("activate vars: %v", vars)
+		}
+		return ok(`{"inventoryActivate":{"inventoryLevel":{"id":"lvl1"},"userErrors":[]}}`)
 	})
 	err := c.MoveAvailable(ctx, "I1", "L1", "L2", 12, "")
 	var ue *UserErrors
-	if !errors.As(err, &ue) || ue.Mutation != "inventoryMoveQuantities" || ue.Errors[0].Code != "INVALID_QUANTITY_TOO_LOW" {
+	if !errors.As(err, &ue) || ue.Mutation != "inventoryAdjustQuantities" || ue.Errors[0].Code != "INVALID_QUANTITY_TOO_LOW" {
 		t.Fatalf("want UserErrors, got %v", err)
+	}
+	if activated != 1 {
+		t.Errorf("activated %d times, want 1", activated)
 	}
 	if err := c.MoveAvailable(ctx, "I1", "L1", "L2", 0, ""); err == nil {
 		t.Error("zero move accepted")
@@ -351,6 +367,24 @@ func TestMutationsSendInputsAndSurfaceUserErrors(t *testing.T) {
 	})
 	if err := c.SetMetafields(ctx, []Metafield{{OwnerID: "gid://shopify/Product/1", Namespace: "soteria", Key: "badge", Value: "Verified Safe Lot"}}); err != nil {
 		t.Fatal(err)
+	}
+
+	// An empty value clears the badge by deleting the metafield: Shopify
+	// refuses "Value can't be blank" on metafieldsSet.
+	deleted := false
+	m.on("DeleteMetafields", func(vars map[string]any, n int) (int, string) {
+		deleted = true
+		mf := vars["metafields"].([]any)[0].(map[string]any)
+		if mf["ownerId"] != "gid://shopify/Product/1" || mf["key"] != "badge" || mf["value"] != nil {
+			t.Errorf("delete identifier: %v", mf)
+		}
+		return ok(`{"metafieldsDelete":{"deletedMetafields":[{"ownerId":"gid://shopify/Product/1","namespace":"soteria","key":"badge"}],"userErrors":[]}}`)
+	})
+	if err := c.SetMetafields(ctx, []Metafield{{OwnerID: "gid://shopify/Product/1", Namespace: "soteria", Key: "badge", Value: ""}}); err != nil {
+		t.Fatal(err)
+	}
+	if !deleted {
+		t.Error("empty value did not delete the metafield")
 	}
 }
 

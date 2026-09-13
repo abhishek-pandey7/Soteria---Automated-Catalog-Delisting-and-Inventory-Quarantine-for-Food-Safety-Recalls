@@ -4,15 +4,43 @@ Everything needed to run Sotería as a system rather than as a set of processes.
 
 ```sh
 cd infra
-docker compose up -d            # broker + the four domain services
+docker compose up -d            # broker + every service
 docker compose logs -f rabbitmq # watch the topology import
 ```
+
+`infra/.env` (git-ignored; start from `infra/.env.example`) supplies
+`RABBITMQ_USER` / `RABBITMQ_PASSWORD` — compose refuses to start without the
+password, there is no default — and optionally `SHOPIFY_SHOP` / `SHOPIFY_ACCESS_TOKEN` / `QUARANTINE_LOCATION`
+(without them the domain services run on fixtures), `GROQ_API_KEY` (without it
+the extractor and the evasion judge use deterministic fakes), and
+`SLACK_WEBHOOK_URL` / `RESEND_API_KEY` (without them notifications are logged).
 
 | Port | What |
 |---|---|
 | 5672 | AMQP |
 | 15672 | RabbitMQ management UI (credentials from `infra/.env`) |
-| 8081–8084 | resolution, containment, order rescue, audit |
+| 8081–8085 | resolution, containment, order rescue, notification, audit |
+| 8086–8088 | recall extractor, anti-evasion, silent-diff |
+| 8091 | ingestion-fda (health/metrics) |
+
+On Windows with Docker Desktop, BuildKit rejects a repo path containing
+non-ASCII characters (`Sotería`); build with the classic builder instead:
+`DOCKER_BUILDKIT=0 COMPOSE_DOCKER_CLI_BUILD=0 docker compose build`.
+
+## Replaying a real recall
+
+`ingestion-fda` starts polling openFDA and the FDA press feed as soon as the
+broker is up, so notices flow on their own. To push one specific notice through
+the chain, publish a `recall.raw.received.v1` on `ingestion.x` with routing
+key `ingestion.recall.raw.received.v1` (the extractor's `eval/cases.json` has
+sixteen real ones) and follow it:
+
+```sh
+curl "localhost:8081/v1/lots/status?gtin=085315054108&lot_code=1226183"   # AFFECTED
+curl localhost:8082/v1/containment/actions                                # AUTO_HELD, 40 units
+curl localhost:8084/v1/incidents/inc-fda_enforcement-h-1258-2026/deliveries
+curl localhost:8085/v1/dossiers/inc-fda_enforcement-h-1258-2026/verify    # verified: true
+```
 
 ## The topology is declarative
 

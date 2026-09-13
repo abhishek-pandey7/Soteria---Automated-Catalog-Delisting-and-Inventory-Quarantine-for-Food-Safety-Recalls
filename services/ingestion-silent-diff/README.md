@@ -49,3 +49,9 @@ Output: envelope-wrapped `ingestion.catalog.sku.vanished.v1` on `ingestion.x`, p
 ## Health
 
 `/healthz` → 503 when any source has failed 3 consecutive fetches or the broker rejected a publish; per-source `last_success_at`, `last_row_count`, `signals_emitted`, `last_anomaly`. `/metrics` in Prometheus text.
+
+## Read API
+
+`GET /v1/signals?source=&limit=` returns every `catalog.sku.vanished.v1` this
+service published (payloads, newest first) for the ops console. CORS is open:
+read-only, no credentials.

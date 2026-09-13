@@ -41,11 +41,20 @@ class Store:
     def __init__(self, path: str = ":memory:"):
         if path != ":memory:":
             os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
-        self.db = sqlite3.connect(path)
+        # /healthz reads counts() from the HTTP thread while the poll loop
+        # writes; Python's sqlite3 serialises access itself, it only needs
+        # telling the connection is shared.
+        self.db = sqlite3.connect(path, check_same_thread=False)
         self.db.execute("PRAGMA foreign_keys = ON")
         if path != ":memory:":
             self.db.execute("PRAGMA journal_mode = WAL")
         self.db.executescript(SCHEMA)
+        # The signal payload itself, so /v1/signals can serve what was
+        # published (added after the first release: migrate older stores).
+        cols = {r[1] for r in self.db.execute("PRAGMA table_info(emitted)")}
+        if "data" not in cols:
+            self.db.execute("ALTER TABLE emitted ADD COLUMN data TEXT NOT NULL DEFAULT '{}'")
+            self.db.commit()
 
     def close(self) -> None:
         self.db.close()
@@ -87,12 +96,30 @@ class Store:
     def already_emitted(self, source: str, key: str) -> bool:
         return self.db.execute("SELECT 1 FROM emitted WHERE source = ? AND key = ?", (source, key)).fetchone() is not None
 
-    def mark_emitted(self, source: str, key: str, event_id: str) -> None:
+    def mark_emitted(self, source: str, key: str, event_id: str, payload: dict | None = None) -> None:
         self.db.execute(
-            "INSERT OR REPLACE INTO emitted (source, key, event_id, emitted_at) VALUES (?, ?, ?, ?)",
-            (source, key, event_id, _now()),
+            "INSERT OR REPLACE INTO emitted (source, key, event_id, emitted_at, data) VALUES (?, ?, ?, ?, ?)",
+            (source, key, event_id, _now(), json.dumps(payload or {})),
         )
         self.db.commit()
+
+    def signals(self, source: str = "", limit: int = 100) -> list[dict]:
+        """Published catalog.sku.vanished.v1 payloads, newest first, for the ops console."""
+        rows = self.db.execute(
+            "SELECT source, event_id, emitted_at, data FROM emitted ORDER BY emitted_at DESC LIMIT ?", (max(1, min(limit, 1000)),)
+        ).fetchall()
+        out = []
+        for src, event_id, at, data in rows:
+            if source and src != source:
+                continue
+            p = json.loads(data)
+            if not p:
+                continue
+            p.setdefault("source", src)
+            p.setdefault("event_id", event_id)
+            p.setdefault("emitted_at", at)
+            out.append(p)
+        return out
 
     def clear_emitted(self, source: str, keys: list[str]) -> None:
         """A key that reappears is no longer 'vanished'; a later vanish must emit again."""

@@ -13,4 +13,5 @@ use (
 	./services/recall-extractor
 	./services/resolution-service
 	./tests/e2e
+	./tools/democtl
 )
