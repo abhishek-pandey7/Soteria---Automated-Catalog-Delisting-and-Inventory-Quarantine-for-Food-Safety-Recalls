@@ -22,6 +22,7 @@ import sys
 import threading
 from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from urllib.parse import parse_qs, urlparse
 
 import yaml
 
@@ -87,6 +88,11 @@ def health_server(port: int, health: Health, store: Store) -> ThreadingHTTPServe
                 self._json(200 if ok else 503, body)
             elif self.path == "/readyz":
                 self._text(200, "ok\n")
+            elif self.path.startswith("/v1/signals"):
+                # Read API for the ops console: every catalog.sku.vanished.v1
+                # this service published. ?source= narrows, ?limit= caps (100).
+                q = parse_qs(urlparse(self.path).query)
+                self._json(200, {"items": store.signals(q.get("source", [""])[0], int(q.get("limit", ["100"])[0] or 100))})
             elif self.path == "/metrics":
                 ok = health.healthy()
                 lines = [f"# TYPE soteria_silentdiff_up gauge", f"soteria_silentdiff_up {int(ok)}"]
@@ -99,10 +105,19 @@ def health_server(port: int, health: Health, store: Store) -> ThreadingHTTPServe
             else:
                 self._text(404, "not found\n")
 
+        def do_OPTIONS(self):
+            self.send_response(204)
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.send_header("Access-Control-Allow-Methods", "GET, OPTIONS")
+            self.send_header("Access-Control-Allow-Headers", "Content-Type")
+            self.end_headers()
+
         def _json(self, code, body):
             data = json.dumps(body).encode()
             self.send_response(code)
             self.send_header("Content-Type", "application/json")
+            # Read-only, no credentials: the ops console may call from any origin.
+            self.send_header("Access-Control-Allow-Origin", "*")
             self.send_header("Content-Length", str(len(data)))
             self.end_headers()
             self.wfile.write(data)

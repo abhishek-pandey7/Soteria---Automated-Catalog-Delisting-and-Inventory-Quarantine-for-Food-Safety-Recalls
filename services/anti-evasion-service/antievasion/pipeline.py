@@ -41,6 +41,12 @@ CREATE TABLE IF NOT EXISTS recalls (key TEXT PRIMARY KEY, data TEXT NOT NULL, ad
 CREATE TABLE IF NOT EXISTS flagged (listing_id TEXT NOT NULL, recall_key TEXT NOT NULL, flag_id TEXT NOT NULL, flagged_at TEXT NOT NULL, PRIMARY KEY (listing_id, recall_key));
 CREATE TABLE IF NOT EXISTS judged (listing_id TEXT NOT NULL, recall_key TEXT NOT NULL, text_hash TEXT NOT NULL, flagged INTEGER NOT NULL, judged_at TEXT NOT NULL, PRIMARY KEY (listing_id, recall_key));
 """)
+        # The flag payload itself, so /v1/flags can serve what was published
+        # (added after the first release: migrate a store that predates it).
+        cols = {r[1] for r in self.db.execute("PRAGMA table_info(flagged)")}
+        if "data" not in cols:
+            self.db.execute("ALTER TABLE flagged ADD COLUMN data TEXT NOT NULL DEFAULT '{}'")
+            self.db.commit()
 
     def add(self, r: Recall) -> None:
         with self.lock:
@@ -56,10 +62,26 @@ CREATE TABLE IF NOT EXISTS judged (listing_id TEXT NOT NULL, recall_key TEXT NOT
         with self.lock:
             return self.db.execute("SELECT 1 FROM flagged WHERE listing_id = ? AND recall_key = ?", (listing_id, recall_key)).fetchone() is not None
 
-    def mark_flagged(self, listing_id: str, recall_key: str, flag_id: str) -> None:
+    def mark_flagged(self, listing_id: str, recall_key: str, flag_id: str, payload: dict | None = None) -> None:
         with self.lock:
-            self.db.execute("INSERT OR REPLACE INTO flagged VALUES (?, ?, ?, ?)", (listing_id, recall_key, flag_id, now_iso()))
+            self.db.execute("INSERT OR REPLACE INTO flagged (listing_id, recall_key, flag_id, flagged_at, data) VALUES (?, ?, ?, ?, ?)",
+                            (listing_id, recall_key, flag_id, now_iso(), json.dumps(payload or {})))
             self.db.commit()
+
+    def flags(self, incident_id: str = "", limit: int = 100) -> list[dict]:
+        """Published flags, newest first, for the ops console."""
+        with self.lock:
+            rows = self.db.execute("SELECT data, flagged_at FROM flagged ORDER BY flagged_at DESC LIMIT ?", (max(1, min(limit, 1000)),)).fetchall()
+        out = []
+        for data, at in rows:
+            f = json.loads(data)
+            if not f:
+                continue
+            if incident_id and f.get("incident_id") != incident_id:
+                continue
+            f.setdefault("flagged_at", at)
+            out.append(f)
+        return out
 
     def already_judged(self, listing_id: str, recall_key: str, text_hash: str) -> bool:
         """True when this exact listing text was already judged for this recall (edits re-judge)."""
@@ -241,7 +263,7 @@ class Pipeline:
             with self.health.lock:
                 self.health.broker_connected = True
                 self.health.flagged += 1
-            self.watchlist.mark_flagged(c.listing.listing_id, c.recall.key, flag.flag_id)
+            self.watchlist.mark_flagged(c.listing.listing_id, c.recall.key, flag.flag_id, env["payload"])
             self.watchlist.mark_judged(c.listing.listing_id, c.recall.key, text_hash, True)
             out.append(env)
         return out

@@ -2,7 +2,7 @@
 # fed by containment.action.taken.v1; this seed mirrors real FDA notices
 # (Sept 2026) so the fixture listings exercise real identifiers.
 recalls:
-  - incident_id: inc-H-1273-2026
+  - incident_id: inc-fda_enforcement-h-1273-2026
     gtin: "194346207961"
     lot_codes: ["LB028ACP04"]
     date_codes: ["January 28, 2027"]
@@ -10,7 +10,7 @@ recalls:
     product_title: bettergoods Pistachio Nut Butter 6.7 oz
     hazard: Salmonella
     recalled_at: "2026-08-20T00:00:00Z"
-  - incident_id: inc-H-1265-2026
+  - incident_id: inc-fda_enforcement-h-1265-2026
     gtin: "041548413624"
     lot_codes: ["LLA617603", "LLA617703", "LLA617803", "LLA618203", "LLA619503"]
     date_codes: ["30 JUN 2027", "31 JUL 2027"]
@@ -18,7 +18,7 @@ recalls:
     product_title: Outshine Fruit Bar Watermelon 6-Count 2.5 oz
     hazard: glass pieces
     recalled_at: "2026-08-28T00:00:00Z"
-  - incident_id: inc-H-1258-2026
+  - incident_id: inc-fda_enforcement-h-1258-2026
     gtin: "085315054108"
     lot_codes: ["1226183"]
     brand: Sun Noodle

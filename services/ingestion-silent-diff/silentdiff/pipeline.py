@@ -123,7 +123,7 @@ class Pipeline:
             with self.health.lock:
                 self.health.broker_connected = True
                 st.signals_emitted += 1
-            self.store.mark_emitted(src.name, v.row.key, env["event_id"])
+            self.store.mark_emitted(src.name, v.row.key, env["event_id"], env["payload"])
             log.info("vanished source=%s sku=%s title=%r conf=%.2f reasons=%s", src.name, v.row.sku, v.row.title, v.confidence, "; ".join(v.reasons))
             out.append(env)
         log.info("diff source=%s before=%d after=%d vanished=%d appeared=%d emitted=%d", src.name, res.before_count, res.after_count, len(res.vanished), len(res.appeared), len(out))

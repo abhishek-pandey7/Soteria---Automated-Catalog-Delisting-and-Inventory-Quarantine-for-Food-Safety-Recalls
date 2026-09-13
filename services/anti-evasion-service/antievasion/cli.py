@@ -22,6 +22,7 @@ import sys
 import threading
 import time
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from urllib.parse import parse_qs, urlparse
 
 import yaml
 
@@ -123,6 +124,14 @@ def health_server(port: int, health: Health, watchlist: Watchlist) -> ThreadingH
                 self._send(200 if ok else 503, "application/json", json.dumps(body))
             elif self.path == "/readyz":
                 self._send(200, "text/plain", "ok\n")
+            elif self.path.startswith("/v1/flags"):
+                # Read API for the ops console: every evasion.flagged.v1 this
+                # service published. ?incident_id= narrows, ?limit= caps (100).
+                q = parse_qs(urlparse(self.path).query)
+                items = watchlist.flags(q.get("incident_id", [""])[0], int(q.get("limit", ["100"])[0] or 100))
+                self._send(200, "application/json", json.dumps({"items": items}))
+            elif self.path.startswith("/v1/watchlist"):
+                self._send(200, "application/json", json.dumps({"items": [r.__dict__ for r in watchlist.all()]}))
             elif self.path == "/metrics":
                 ok = health.healthy()
                 with health.lock:
@@ -134,10 +143,19 @@ def health_server(port: int, health: Health, watchlist: Watchlist) -> ThreadingH
             else:
                 self._send(404, "text/plain", "not found\n")
 
+        def do_OPTIONS(self):
+            self.send_response(204)
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.send_header("Access-Control-Allow-Methods", "GET, OPTIONS")
+            self.send_header("Access-Control-Allow-Headers", "Content-Type")
+            self.end_headers()
+
         def _send(self, code, ctype, text):
             data = text.encode()
             self.send_response(code)
             self.send_header("Content-Type", ctype)
+            # Read-only, no credentials: the ops console may call from any origin.
+            self.send_header("Access-Control-Allow-Origin", "*")
             self.send_header("Content-Length", str(len(data)))
             self.end_headers()
             self.wfile.write(data)

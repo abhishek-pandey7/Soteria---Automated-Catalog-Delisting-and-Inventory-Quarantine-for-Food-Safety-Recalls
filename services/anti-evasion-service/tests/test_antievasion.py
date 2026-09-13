@@ -63,7 +63,7 @@ def test_gtin14_and_dates():
 def test_prefilter_signals():
     recalls = {r.incident_id: r for r in watchlist().all()}
     by = {l.listing_id: l for l in listings()}
-    pb = recalls["inc-H-1273-2026"]
+    pb = recalls["inc-fda_enforcement-h-1273-2026"]
 
     c = score(pb, by["liq-1001"])
     assert c.lot_hit == "LB028ACP04" and not c.gtin_hit and c.score >= 0.75
@@ -73,9 +73,9 @@ def test_prefilter_signals():
     assert c.date_hit == "January 28, 2027" and c.score >= 0.65
     c = score(pb, by["liq-1003"])  # almond butter: same brand, different product
     assert not c.gtin_hit and not c.lot_hit and c.score < 0.5
-    c = score(recalls["inc-H-1265-2026"], by["liq-1005"])  # posted before the recall
+    c = score(recalls["inc-fda_enforcement-h-1265-2026"], by["liq-1005"])  # posted before the recall
     assert any("before recall" in s for s in c.signals) and c.score < 0.35
-    c = score(recalls["inc-H-1265-2026"], by["liq-1004"])  # lot only in photo text
+    c = score(recalls["inc-fda_enforcement-h-1265-2026"], by["liq-1004"])  # lot only in photo text
     assert c.lot_hit == "LLA618203" and c.date_hit == "31 JUL 2027"
 
     cands = candidates(list(recalls.values()), listings())
@@ -121,7 +121,7 @@ def test_pipeline_flags_once_and_respects_judge():
     assert ids == ["1001", "1002", "1004", "1006", "1009"]
     by = {e["payload"]["listing_url"][-4:]: e["payload"] for e in flagged}
     assert by["1001"]["lot_code"] == "LB028ACP04" and by["1002"]["gtin"] == "194346207961"
-    assert by["1004"]["incident_id"] == "inc-H-1265-2026" and by["1004"]["confidence"] >= 0.9
+    assert by["1004"]["incident_id"] == "inc-fda_enforcement-h-1265-2026" and by["1004"]["confidence"] >= 0.9
     assert all(e["correlation_id"] == e["payload"]["incident_id"] for e in flagged)
     # Same listings again: nothing new (already flagged), and the judge is not called again.
     seen = len(judge.seen)
@@ -164,3 +164,17 @@ def test_events_validate_against_contracts():
     for env in flagged:
         jsonschema.validate(env, envelope_schema, format_checker=jsonschema.FormatChecker())
         jsonschema.validate(env["payload"], payload_schema, format_checker=jsonschema.FormatChecker())
+
+
+def test_watchlist_serves_published_flags_for_the_console():
+    w, pub = watchlist(), Collect()
+    pipe = Pipeline(w, Judge(), pub, [])
+    emitted = pipe.process(listings())
+    assert emitted
+
+    served = w.flags()
+    assert {f["flag_id"] for f in served} == {e["payload"]["flag_id"] for e in emitted}
+    incident = emitted[0]["payload"]["incident_id"]
+    assert all(f["incident_id"] == incident for f in w.flags(incident_id=incident))
+    assert w.flags(incident_id="nope") == []
+    assert len(w.flags(limit=1)) == 1

@@ -174,3 +174,19 @@ def test_sku_falls_back_to_key_when_listing_has_none():
     seasonal = next(v for v in res.vanished if v.row.title.startswith("Spooky"))
     assert seasonal.row.sku == ""
     assert events.payload(seasonal)["sku"] == seasonal.row.key
+
+
+def test_store_serves_published_signals_for_the_console():
+    store, pub = Store(":memory:"), CollectPublisher()
+    src = Source(name="shopify:lesserevil.com", kind="shopify", url="https://www.lesserevil.com", brand="LesserEvil")
+    pipe = Pipeline(store, pub, [src], min_confidence=0.5)
+    before, b_at = load("lesserevil_before.json")
+    after, a_at = load("lesserevil_after.json")
+    pipe.ingest(src, list(before.values()), b_at)
+    emitted = pipe.ingest(src, list(after.values()), a_at)
+
+    served = store.signals()
+    assert {s["event_id"] for s in served} == {e["event_id"] for e in emitted}
+    assert all(s["source"] == src.name and s["brand_name"] == "LesserEvil" for s in served)
+    assert store.signals(source="other") == []
+    assert len(store.signals(limit=1)) == 1
