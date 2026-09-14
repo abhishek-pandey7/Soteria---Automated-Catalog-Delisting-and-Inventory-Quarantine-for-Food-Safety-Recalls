@@ -2,7 +2,7 @@
 
 Recall detection, lot-level containment and proof of action for online grocery.
 
-Demo Link: https://app.trupeer.ai/view/OpCNok2s5/soteria
+Demo Link: [https://app.trupeer.ai/view/OpCNok2s5/soteria](https://app.trupeer.ai/view/oeqTfJ3WH/soteria)
 
 ## The problem
 
